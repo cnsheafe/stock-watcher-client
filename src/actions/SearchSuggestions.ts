@@ -1,6 +1,5 @@
 import { IState } from "../store/store";
 import { ActionCreator, Dispatch } from "redux";
-import Suggestions from "../actionInterfaces/Suggestions";
 import { Company } from "../store/schema";
 import fetchCompanies from "../services/fetchCompanies";
 
@@ -10,12 +9,10 @@ export interface SearchResult {
   results: Array<Company>;
 }
 
+export interface Suggestions {
+    fetchSuggestions: (searchphrase: string) => (any),
+}
 export default class SearchSuggestions implements Suggestions {
-  suggestions: Company[];
-
-  constructor() {
-    this.suggestions = [];
-  }
   fetchSuggestions(searchphrase: string) {
     return (dispatch: Dispatch<IState>) => {
       fetchCompanies(searchphrase)
