@@ -33,22 +33,6 @@ export class Search extends React.Component<SearchProps, {}> {
   }
 
   render() {
-    const suggestions = this.props.searchResults.map<
-      JSX.Element
-    >((company, index) => (
-      <li
-        key={index}
-        data-symbol={company.symbol}
-        data-company={company.name}
-        className="search-suggestions-item"
-      >
-        <i className="material-icons purple700">add_circle</i>
-        <p>
-          {company.symbol}: {company.name}
-        </p>
-      </li>
-    ));
-
     return (
       <section className="search">
         <label htmlFor="search-companies" className="search-label">
@@ -64,20 +48,7 @@ export class Search extends React.Component<SearchProps, {}> {
           className={
             this.props.searchResults.length > 0 ? "suggestions-title" : "hide"
           }
-        >
-          Possible Matches
-        </h2>
-        <ul
-          id="search-suggestions"
-          onClick={e => this.suggestionHandler(e)}
-          className={
-            this.props.searchResults.length > 0
-              ? "search-suggestions-list"
-              : "hide"
-          }
-        >
-          {suggestions}
-        </ul>
+        />
       </section>
     );
   }
