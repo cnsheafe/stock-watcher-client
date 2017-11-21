@@ -1,0 +1,44 @@
+header h1 {
+  font-size: 35px;
+  font-family: "Arvo", serif;
+  display: flex;
+  justify-content: center;
+  background-color: #00838F;
+  color: white;
+  padding: 10px;
+  margin: 0; }
+  @media screen and (min-width: 768px) {
+    header h1 {
+      font-size: 45px;
+      justify-content: flex-start; } }
+
+footer ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: fixed;
+  background-color: #00838F;
+  bottom: 0;
+  right: 0;
+  padding: 10px 5px 10px 0;
+  margin: 0;
+  margin-top: 60px;
+  width: 100vw; }
+footer li {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding-left: 0; }
+  footer li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px; }
+
+body {
+  background-color: #ffffff;
+  height: 100vh;
+  position: relative;
+  min-height: 100vh;
+  width: 100%; }
+
+/*# sourceMappingURL=basic.css.map */

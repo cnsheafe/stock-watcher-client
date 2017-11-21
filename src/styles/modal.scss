@@ -1,0 +1,108 @@
+@import "colors";
+@import "grid";
+.modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow: auto;
+    background-color: rgba(#ffffff, 1);
+    z-index: 100;
+    border: $accent-color 3px solid;
+    padding: 10px;
+    font-family: "Lato", sans-serif;
+    @media screen and (min-width: $small) {
+        width: 50vw;
+        top: 20vh;
+    }
+    @media screen and (min-width: $medium) {
+        width: 40vw;
+        top: 15vh;
+    }
+    @media screen and (min-width: $large) {
+        width: 30vw;
+    }
+
+    @media screen and (max-width: 320px) {
+        top: 10vh;
+    }
+
+    .modal-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .modal-header {
+        font-family: "Arvo", serif;
+        font-size: 24px;
+        font-weight: normal;
+        text-align: center;
+        margin: 10px auto;
+    }
+    .modal-explanation {
+        font-family: "Lato", sans-serif;
+    }
+    .modal-price {
+        width: 30%;
+        margin-bottom: 5px;
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+    }
+    .modal-phone {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        input {
+            margin-right: 15px;
+        }
+        input:first-child {
+            width: 15%;
+        }
+        input:nth-child(2) {
+            width: 25%;
+        }
+        input:last-child {
+            width: 25%;
+        }
+    }
+    button {
+        padding-bottom: 8px;
+        padding-top: 8px;
+        border: 3px solid $accent-color;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        font-family: "Lato", sans-serif;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+    button:hover {
+        background-color: $hover-color;
+    }
+}
+
+.dim-background::after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+    background-color: rgba(#000000, 0.4);
+}
+
+.error {
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+    p {
+        margin: 0;
+    }
+}

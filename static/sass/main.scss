@@ -1,0 +1,12 @@
+
+@import "colors";
+@import "header";
+@import "footer";
+
+body {
+  background-color: #ffffff;
+  height: 100vh;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}

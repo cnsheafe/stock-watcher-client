@@ -1,0 +1,49 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "description": "Template for webpack",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react-hot-loader": "^3.0.5",
+    "@types/webpack": "^3.8.1",
+    "@types/webpack-env": "^1.13.2",
+    "awesome-typescript-loader": "^3.4.0",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "6.24.1",
+    "css-loader": "^0.28.7",
+    "node-sass": "^4.7.2",
+    "react-hot-loader": "^3.1.3",
+    "redux-mock-store": "^1.3.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-hot-middleware": "^2.20.0"
+  },
+  "dependencies": {
+    "@types/enzyme": "^3.1.4",
+    "@types/jest": "^21.1.6",
+    "@types/react": "^16.0.25",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-redux": "^5.0.13",
+    "chart.js": "^2.7.1",
+    "enzyme": "^3.2.0",
+    "jest": "^21.2.1",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "rxjs": "^5.5.2"
+  }
+}

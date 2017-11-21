@@ -1,0 +1,70 @@
+@import "grid";
+@import "colors";
+.graphs-list {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0;
+    list-style: none;
+    background-color: white;
+    margin: auto;
+    width: 80vw;
+    border: 3px solid $accent-color;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.graphs-list-item {
+    position: relative;
+    box-sizing: border-box;
+    border-top: 2px solid gray;
+    height: 90vh;
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+
+    @media screen and (min-height: $small) {
+        height: 80vh;
+    }
+    @media screen and (min-height: $medium) {
+        height: 60vh;
+    }
+    .material-icons.red-remove700 {
+        color: #FF1744;
+    }
+    .material-icons.purple-watch700 {
+        color: $accent-purple-light-color;
+    }
+
+    .graph-controls {
+        @extend .container;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        .remove,
+        .watch {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 10px;
+            @media screen and (min-width: $small) {
+                font-size: 18px;
+                margin-left: 15px;
+            }
+            b {
+                font-size: 14px;
+            }
+        }
+        .material-icons.purple-watch700,
+        .material-icons.red-remove700 {
+            margin-right: 5px;
+        }
+    }
+}
+
+.graphs-list-item:first-child {
+    border-top: none;
+}

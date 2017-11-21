@@ -1,0 +1,23 @@
+@import "grid";
+@import "colors";
+@import "header";
+@import "search";
+@import "graphs";
+@import "modal";
+@import "footer";
+@import "tickers";
+
+body {
+    background-color: #ffffff;
+    height: 100vh;
+    position: relative;
+    min-height: 100vh;
+}
+
+main {
+    padding-bottom: 50px;
+}
+
+.hide {
+    display: none;
+}
