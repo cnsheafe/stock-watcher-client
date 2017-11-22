@@ -60,8 +60,8 @@ export class TickerCard extends React.Component<TickerProps> {
   updateHandler(symbol: string) {
     store.dispatch(
       new Tickers().UpdateOne(symbol)
-    ).then(val => {
-      if(!val) {
+    ).then(action => {
+      if(!action.updatedTicker) {
         this.updateHandler(symbol);
       }
     });
