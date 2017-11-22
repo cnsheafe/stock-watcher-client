@@ -53,7 +53,7 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
         return;
       }
     }
-    store.dispatch(new Tickers().AddMany([company.symbol]));
+    store.dispatch(new Tickers().RequestMany([company.symbol]));
     store.dispatch(new SearchSuggestions().clearSuggestions());
   }
 }
