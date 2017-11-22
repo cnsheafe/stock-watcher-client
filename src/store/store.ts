@@ -19,9 +19,11 @@ import {
 import {
   ADD_TICKERS,
   REMOVE_TICKER,
+  UPDATE_TICKER,
   Ticker,
   AddTickers,
-  RemoveTicker
+  RemoveTicker,
+  UpdateTicker
 } from "../actions/Tickers";
 
 // Shape of the App State
@@ -41,7 +43,8 @@ type ValidAction =
   | RemoveGraph
   | ToggleModalDisplay
   | AddTickers
-  | RemoveTicker;
+  | RemoveTicker
+  | UpdateTicker;
 
 export function reducer(state: IState, action: ValidAction): IState {
   switch (action.type) {
@@ -84,15 +87,22 @@ export function reducer(state: IState, action: ValidAction): IState {
         modalSymbol: (<ToggleModalDisplay>action).symbol
       });
     case ADD_TICKERS:
+      const addTickerAction = <AddTickers>action;
       return Object.assign({}, state, {
-        tickers: [...action.tickers, ...state.tickers]
+        tickers: new Set<Ticker>([...addTickerAction.tickers, ...state.tickers])
       });
     case REMOVE_TICKER:
       const remainingTickers = [...state.tickers];
       remainingTickers.splice(action.tickerIndex, 1);
       return Object.assign({}, state, {
-        tickers: [...remainingTickers]
+        tickers: new Set<Ticker>([...remainingTickers])
       });
+    case UPDATE_TICKER:
+      const updatedTickers = [...state.tickers];
+      updatedTickers[action.tickerIndex].price = action.updatedPrice;
+      return Object.assign({}, state, {
+        tickers: new Set<Ticker>([...updatedTickers])
+      })
     default:
       return state;
   }
