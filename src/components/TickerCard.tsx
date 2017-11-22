@@ -10,6 +10,7 @@ interface TickerProps {
 }
 export class TickerCard extends React.Component<TickerProps> {
   mTickers: Tickers;
+  timerId;
   constructor(props) {
     super(props);
     this.mTickers = new Tickers();
@@ -28,5 +29,14 @@ export class TickerCard extends React.Component<TickerProps> {
   removeTicker(index: number) {
     console.log("MyIndex: ",index);
     store.dispatch(this.mTickers.RemoveOne(index));
+  }
+  componentDidMount() {
+    this.timerId = setInterval(() => {
+      console.log("Update!");
+      store.dispatch(this.mTickers.UpdateOne(this.props.index, this.props.symbol));
+    }, 1e3 * 60);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 }
