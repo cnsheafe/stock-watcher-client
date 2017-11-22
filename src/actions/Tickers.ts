@@ -1,9 +1,9 @@
 import { ActionCreator, Dispatch } from "redux";
 import { IState } from "../store/store";
 import { fetchPrices } from "../services/fetchPrices";
-export const ADD_TICKERS = "ADD_TICKERS";
 export const REMOVE_TICKER = "REMOVE_TICKER";
 export const UPDATE_TICKER = "UPDATE_TICKER";
+export const REQUEST_TICKERS = "REQUEST_TICKERS";
 
 export type Ticker = {
   symbol: string;
@@ -11,59 +11,61 @@ export type Ticker = {
 };
 
 export interface UpdateTicker {
-  type: "UPDATE_TICKER",
-  tickerIndex: number,
-  updatedPrice: number
+  type: "UPDATE_TICKER";
+  updatedTicker: Ticker;
 }
-export interface AddTickers {
-  type: "ADD_TICKERS";
+export interface RequestTickers {
+  type: "REQUEST_TICKERS";
   tickers: Set<Ticker>;
 }
 
 export interface RemoveTicker {
   type: "REMOVE_TICKER";
-  tickerIndex: number;
+  symbol: string;
 }
 
 export default class Tickers {
-  AddMany(symbols: string[]) {
+
+  RequestMany(symbols: string[]) {
     return function(dispatch: Dispatch<IState>) {
-      fetchPrices(symbols).then(results => {
-        console.log(results);
-        const tickers = new Set<Ticker>();
-        symbols.forEach(symbol => {
-          tickers.add({
-            symbol: symbol.toLowerCase(),
-            price: results[symbol][0].price
-          });
+      const tickers = new Set<Ticker>();
+      symbols.forEach(symbol => {
+        tickers.add({
+          symbol: symbol.toLowerCase(),
+          price: 0
         });
-        dispatch<AddTickers>({
-          type: ADD_TICKERS,
-          tickers: tickers
-        });
+      });
+
+      dispatch<RequestTickers>({
+        type: REQUEST_TICKERS,
+        tickers: tickers
       });
     };
   }
 
-  RemoveOne(index: number) {
+  RemoveOne(symbol: string) {
     return function(dispatch: Dispatch<IState>) {
       dispatch<RemoveTicker>({
         type: REMOVE_TICKER,
-        tickerIndex: index
+        symbol: symbol
       });
     };
   }
-  UpdateOne(index: number, symbol: string) {
+  UpdateOne(symbol: string) {
     return function(dispatch: Dispatch<IState>) {
-       fetchPrices([symbol]).then(results => {
-         const updatedPrice = results[symbol][0].price;
-
-      dispatch<UpdateTicker>({
-        type: UPDATE_TICKER,
-        tickerIndex: index,
-        updatedPrice: updatedPrice
+      return fetchPrices([symbol]).then(results => {
+        const updatedPrice =
+          results[symbol] === null ? 0 : results[symbol][0].price;
+        const ticker: Ticker = {
+          symbol: symbol,
+          price: updatedPrice
+        };
+        dispatch<UpdateTicker>({
+          type: UPDATE_TICKER,
+          updatedTicker: ticker
+        });
+        return updatedPrice;
       });
-    });
-    }
+    };
   }
 }
