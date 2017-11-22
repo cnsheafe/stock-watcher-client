@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import store from "../store/store";
 import { IState } from "../store/store";
 import { Company } from "../store/schema";
-import { addGraphAsync } from "../store/actions";
 import SearchSuggestions from "../actions/SearchSuggestions";
 import '../styles/search-bar.scss';
 export interface SearchProps {
