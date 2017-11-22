@@ -53,7 +53,7 @@ export const addGraphAsync =
   (company: Company) => {
 
     return function(dispatch: Dispatch<IState>) {
-      const url = '/stockprice';
+      const url = 'localhost:5000/stockprice';
       const options = {
         method: 'POST',
         cache: 'default',
