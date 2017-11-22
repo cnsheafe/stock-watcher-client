@@ -16,8 +16,13 @@ import {
   ToggleModalDisplay
 } from "./actions";
 
-// import { Ticker, ADD_TICKERS, AddTickers } from "../actions/fetchPrices";
-import { Ticker, AddTickers, ADD_TICKERS, dispatchTickers} from '../actions/dispatchTickers';
+import {
+  ADD_TICKERS,
+  REMOVE_TICKER,
+  Ticker,
+  AddTickers,
+  RemoveTicker
+} from "../actions/Tickers";
 
 // Shape of the App State
 export interface IState {
@@ -26,6 +31,7 @@ export interface IState {
   showModal: boolean;
   modalSymbol: string;
   tickers: Ticker[];
+  onTickers: boolean;
 }
 
 // TypeCheck on the reducer
@@ -34,7 +40,8 @@ type ValidAction =
   | AddGraph
   | RemoveGraph
   | ToggleModalDisplay
-  | AddTickers;
+  | AddTickers
+  | RemoveTicker;
 
 export function reducer(state: IState, action: ValidAction): IState {
   switch (action.type) {
@@ -78,7 +85,13 @@ export function reducer(state: IState, action: ValidAction): IState {
       });
     case ADD_TICKERS:
       return Object.assign({}, state, {
-        tickers: action.tickers
+        tickers: [...action.tickers, ...state.tickers]
+      });
+    case REMOVE_TICKER:
+      const remainingTickers = [...state.tickers];
+      remainingTickers.splice(action.tickerIndex, 1);
+      return Object.assign({}, state, {
+        tickers: [...remainingTickers]
       });
     default:
       return state;
@@ -90,7 +103,8 @@ const initialState: IState = {
   graphs: [],
   showModal: false,
   modalSymbol: "",
-  tickers: []
+  tickers: [],
+  onTickers: true
 };
 
 export default createStore(reducer, initialState, applyMiddleware(thunk));
