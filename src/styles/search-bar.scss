@@ -1,0 +1,47 @@
+@import 'colors';
+@import 'grid';
+
+.search {
+  margin-top: 5vh;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+}
+.search-label {
+  font-size: 3.8vw;
+  margin-left: 10vw;
+  margin-bottom: 5px;
+  color: $header-color;
+  @media screen and (min-width: $small) {
+    font-size: 2.7vw;
+  }
+  @media screen and (min-width: $medium) {
+    font-size: 1.8vw;
+  }
+  @media screen and (min-width: $large) {
+    margin-left: 10vw;
+  }
+}
+.search-input {
+  border: 3px solid $accent-color;
+  box-sizing: border-box;
+  font-size: 4vw;
+  border-radius: 5px;
+  margin: auto;
+  width: 80vw;
+  padding: 5px;
+  @media screen and (min-width: $small) {
+    font-size: 3.3vw;
+  }
+  @media screen and (min-width: $medium) {
+    font-size: 2vw;
+  }
+}
+
+.suggestions-title {
+  @extend .search-label;
+  margin: 15px 0 5px 10vw;
+  font-weight: normal;
+  @media screen and (min-width: $large) {
+    margin-left: 10vw;
+  }
+}

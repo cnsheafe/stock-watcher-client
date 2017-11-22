@@ -1,0 +1,16 @@
+@import "colors";
+
+.suggestion-card {
+  display: flex;
+  box-sizing: border-box;
+  border: 3px solid $accent-color;
+  border-bottom: none;
+  padding-top: 8px;
+  align-items: center;
+  .material-icons.purple700 {
+    color: $accent-purple-light-color;
+    margin-right: 8px;
+    margin-left: 5px;
+    font-size: 36px;
+  }
+}

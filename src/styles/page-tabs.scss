@@ -1,0 +1,32 @@
+@import "colors";
+
+.page-tabs {
+  display: flex;
+  width: 100%;
+  background-color: rgb(196, 188, 188);
+  list-style: none;
+  margin-top: 0;
+  height: 35px;
+  justify-content: flex-start;
+  padding-left: 0;
+
+  li {
+    line-height: 32px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    background-color: rgb(110, 104, 104);
+  }
+  a {
+    font-family: "Lato", sans-serif;
+    border-right: 0;
+    padding-left: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    margin-right: 25px;
+  }
+  a:last-child {
+    // border-right: 2px solid $accent-color;
+  }
+}

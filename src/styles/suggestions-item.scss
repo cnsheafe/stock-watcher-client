@@ -1,0 +1,42 @@
+@import "colors";
+@import "grid";
+@import "search";
+
+.search-suggestions-list {
+  @extend .search-input;
+  list-style: none;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 0;
+  border-width: 2px;
+  background-color: white;
+  font-size: 4vw;
+  margin-bottom: 30px;
+  @media screen and (min-width: $small) {
+    font-size: 3vw;
+  }
+  @media screen and (min-width: $medium) {
+    font-size: 1.8vw;
+  }
+  :hover {
+    cursor: pointer;
+    background-color: $hover-color;
+  }
+}
+
+.search-suggestions-item {
+  display: flex;
+  box-sizing: border-box;
+  border-top: 1px solid gray;
+  padding-top: 8px;
+  align-items: center;
+  .material-icons.purple700 {
+    color: $accent-purple-light-color;
+    margin-right: 8px;
+    margin-left: 5px;
+    font-size: 36px;
+  }
+}
+.search-suggestions-item:first-child {
+  border-top: 0;
+}
