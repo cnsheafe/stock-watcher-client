@@ -26,7 +26,7 @@ export default class Tickers {
         console.log(results);
         const tickers = symbols.map(symbol => {
           return {
-            symbol: symbol,
+            symbol: symbol.toLowerCase(),
             price: results[symbol][0].price
           };
         });
