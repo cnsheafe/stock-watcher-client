@@ -14,22 +14,9 @@ export interface SearchProps {
 // Container Component for searching company stocks
 export class Search extends React.Component<SearchProps, {}> {
   private searchSuggestions: SearchSuggestions;
-  constructor() {
-    super({ searchResults: [] });
+  constructor(props) {
+    super(props);
     this.searchSuggestions = new SearchSuggestions();
-  }
-  suggestionHandler(event: React.MouseEvent<HTMLUListElement>) {
-    let target = event.target as HTMLElement;
-    let element =
-      target.className === "search-suggestions-item"
-        ? target
-        : target.parentElement;
-
-    const company: Company = {
-      name: element.dataset.company,
-      symbol: element.dataset.symbol
-    };
-    store.dispatch(addGraphAsync(company));
   }
 
   render() {
