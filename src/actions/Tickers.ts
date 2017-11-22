@@ -36,7 +36,7 @@ export default class Tickers {
         });
       });
 
-      dispatch<RequestTickers>({
+      return dispatch<RequestTickers>({
         type: REQUEST_TICKERS,
         tickers: tickers
       });
@@ -45,27 +45,29 @@ export default class Tickers {
 
   RemoveOne(symbol: string) {
     return function(dispatch: Dispatch<IState>) {
-      dispatch<RemoveTicker>({
+      return dispatch<RemoveTicker>({
         type: REMOVE_TICKER,
         symbol: symbol
       });
     };
   }
   UpdateOne(symbol: string) {
-    return function(dispatch: Dispatch<IState>) {
-      return fetchPrices([symbol]).then(results => {
+    return (dispatch: Dispatch<IState>) => {
+      return this.fetchPrices(symbol).then(results => {
         const updatedPrice =
           results[symbol] === null ? 0 : results[symbol][0].price;
         const ticker: Ticker = {
           symbol: symbol,
           price: updatedPrice
         };
-        dispatch<UpdateTicker>({
+        return dispatch<UpdateTicker>({
           type: UPDATE_TICKER,
           updatedTicker: ticker
         });
-        return updatedPrice;
       });
     };
+  }
+  protected fetchPrices(symbol:string) {
+    return fetchPrices([symbol]);
   }
 }
