@@ -21,12 +21,17 @@ import {
   Ticker,
   RequestTickers,
   RemoveTicker,
-  UpdateTicker,
+  UpdateTicker
 } from "../actions/Tickers";
 
 import {
-  SEARCH_RESULT, CLEAR_RESULT, SearchResult, ClearSearchResults
-} from '../actions/SearchSuggestions';
+  SEARCH_RESULT,
+  CLEAR_RESULT,
+  SearchResult,
+  ClearSearchResults
+} from "../actions/SearchSuggestions";
+
+import { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
 // Shape of the App State
 export interface IState {
   searchResults: Array<Company>;
@@ -46,7 +51,8 @@ type ValidAction =
   | ToggleModalDisplay
   | RequestTickers
   | RemoveTicker
-  | UpdateTicker;
+  | UpdateTicker
+  | SwitchTab;
 
 export function reducer(state: IState, action: ValidAction): IState {
   switch (action.type) {
@@ -54,7 +60,7 @@ export function reducer(state: IState, action: ValidAction): IState {
       const searchAction = <SearchResult>action;
       return Object.assign({}, state, { searchResults: searchAction.results });
     case CLEAR_RESULT:
-      return Object.assign({}, state, { searchResults: []})
+      return Object.assign({}, state, { searchResults: [] });
     case ADD_GRAPH:
       // Assigns a graph an id and index and then adds to the list
       const graphAction = <AddGraph>action;
@@ -110,7 +116,10 @@ export function reducer(state: IState, action: ValidAction): IState {
       const updatedTickers = new Set<Ticker>([...state.tickers]);
       let tickerToUpdate: Ticker;
       updatedTickers.forEach(ticker => {
-        if (ticker.symbol.toLowerCase() === action.updatedTicker.symbol.toLowerCase()) {
+        if (
+          ticker.symbol.toLowerCase() ===
+          action.updatedTicker.symbol.toLowerCase()
+        ) {
           tickerToUpdate = ticker;
         }
       });
@@ -118,7 +127,9 @@ export function reducer(state: IState, action: ValidAction): IState {
       updatedTickers.add(action.updatedTicker);
       return Object.assign({}, state, {
         tickers: new Set<Ticker>([...updatedTickers])
-      })
+      });
+    case SWITCH_TAB:
+      return Object.assign({}, state, { onTickers: action.isTicker });
     default:
       return state;
   }
