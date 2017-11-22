@@ -6,10 +6,11 @@ import { IState } from "../store/store";
 import { connect } from "react-redux";
 import { TickerCard } from "./TickerCard";
 import { addGraphAsync } from "../store/actions";
-import { dispatchTickers } from "../actions/dispatchTickers";
+import Tickers, { Ticker } from "../actions/Tickers";
 export interface SearchProps {
   searchResults: Company[];
   onTickers: boolean;
+  tickers: Set<Ticker>;
 }
 
 export class SuggestionsList extends React.Component<SearchProps, {}> {
@@ -20,7 +21,7 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
 
     const suggestions = this.props.searchResults.map((company, index) => (
       <li key={index.toString()} className="search-suggestions-item">
-        <SearchResultCard company={company} suggestionHandler={mHandler} />
+        <SearchResultCard company={company} suggestionHandler={mHandler} tickers={this.props.tickers}/>
       </li>
     ));
     return (
@@ -39,15 +40,21 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
   graphHandler(company: Company) {
     store.dispatch(addGraphAsync(company));
   }
-  tickerHandler(company: Company) {
-    store.dispatch(dispatchTickers([company.symbol]));
+  tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
+    for (let ticker of inUseTickers) {
+      if (ticker.symbol === company.symbol.toLowerCase()) {
+        return;
+      }
+    }
+    store.dispatch(new Tickers().AddMany([company.symbol]));
   }
 }
 
 function mapStateToProps(state: IState): SearchProps {
   return {
     searchResults: state.searchResults,
-    onTickers: state.onTickers
+    onTickers: state.onTickers,
+    tickers: state.tickers
   };
 }
 
