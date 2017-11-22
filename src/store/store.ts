@@ -15,13 +15,13 @@ import {
 } from "./actions";
 
 import {
-  ADD_TICKERS,
   REMOVE_TICKER,
   UPDATE_TICKER,
+  REQUEST_TICKERS,
   Ticker,
-  AddTickers,
+  RequestTickers,
   RemoveTicker,
-  UpdateTicker
+  UpdateTicker,
 } from "../actions/Tickers";
 
 import {
@@ -44,7 +44,7 @@ type ValidAction =
   | AddGraph
   | RemoveGraph
   | ToggleModalDisplay
-  | AddTickers
+  | RequestTickers
   | RemoveTicker
   | UpdateTicker;
 
@@ -90,20 +90,32 @@ export function reducer(state: IState, action: ValidAction): IState {
         showModal: !state.showModal,
         modalSymbol: (<ToggleModalDisplay>action).symbol
       });
-    case ADD_TICKERS:
-      const addTickerAction = <AddTickers>action;
+    case REQUEST_TICKERS:
       return Object.assign({}, state, {
-        tickers: new Set<Ticker>([...addTickerAction.tickers, ...state.tickers])
+        tickers: new Set<Ticker>([...state.tickers, ...action.tickers])
       });
     case REMOVE_TICKER:
-      const remainingTickers = [...state.tickers];
-      remainingTickers.splice(action.tickerIndex, 1);
+      const remainingTickers = new Set<Ticker>([...state.tickers]);
+      let tickerToRemove: Ticker;
+      remainingTickers.forEach(ticker => {
+        if (ticker.symbol.toLowerCase() === action.symbol.toLowerCase()) {
+          tickerToRemove = ticker;
+        }
+      });
+      remainingTickers.delete(tickerToRemove);
       return Object.assign({}, state, {
         tickers: new Set<Ticker>([...remainingTickers])
       });
     case UPDATE_TICKER:
-      const updatedTickers = [...state.tickers];
-      updatedTickers[action.tickerIndex].price = action.updatedPrice;
+      const updatedTickers = new Set<Ticker>([...state.tickers]);
+      let tickerToUpdate: Ticker;
+      updatedTickers.forEach(ticker => {
+        if (ticker.symbol.toLowerCase() === action.updatedTicker.symbol.toLowerCase()) {
+          tickerToUpdate = ticker;
+        }
+      });
+      updatedTickers.delete(tickerToUpdate);
+      updatedTickers.add(action.updatedTicker);
       return Object.assign({}, state, {
         tickers: new Set<Ticker>([...updatedTickers])
       })
