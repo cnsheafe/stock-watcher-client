@@ -5,12 +5,10 @@ import * as Rx from "rxjs/Rx";
 
 import { Graph, Company } from "./schema";
 import {
-  SEARCH,
   ADD_GRAPH,
   REM_GRAPH,
   TOGGLE_MODAL,
   ADD_WATCH,
-  SearchResult,
   AddGraph,
   RemoveGraph,
   ToggleModalDisplay
@@ -26,6 +24,9 @@ import {
   UpdateTicker
 } from "../actions/Tickers";
 
+import {
+  SEARCH_RESULT, CLEAR_RESULT, SearchResult, ClearSearchResults
+} from '../actions/SearchSuggestions';
 // Shape of the App State
 export interface IState {
   searchResults: Array<Company>;
@@ -39,6 +40,7 @@ export interface IState {
 // TypeCheck on the reducer
 type ValidAction =
   | SearchResult
+  | ClearSearchResults
   | AddGraph
   | RemoveGraph
   | ToggleModalDisplay
@@ -48,9 +50,11 @@ type ValidAction =
 
 export function reducer(state: IState, action: ValidAction): IState {
   switch (action.type) {
-    case SEARCH:
+    case SEARCH_RESULT:
       const searchAction = <SearchResult>action;
       return Object.assign({}, state, { searchResults: searchAction.results });
+    case CLEAR_RESULT:
+      return Object.assign({}, state, { searchResults: []})
     case ADD_GRAPH:
       // Assigns a graph an id and index and then adds to the list
       const graphAction = <AddGraph>action;
