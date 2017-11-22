@@ -5,9 +5,7 @@ import store from "../store/store";
 import { IState } from "../store/store";
 import { connect } from "react-redux";
 import { TickerCard } from "./TickerCard";
-import { addGraphAsync } from "../store/actions";
-import Tickers, { Ticker } from "../actions/Tickers";
-import SearchSuggestions from '../actions/SearchSuggestions';
+import { Ticker } from "../actions/Tickers";
 import "../styles/suggestions-list.scss";
 
 export interface SearchProps {
@@ -18,10 +16,6 @@ export interface SearchProps {
 
 export class SuggestionsList extends React.Component<SearchProps, {}> {
   render() {
-    const mHandler = this.props.onTickers
-      ? this.tickerHandler
-      : this.graphHandler;
-
     const suggestions = this.props.searchResults.map((company, index) => (
       <li key={index.toString()}>
         <SearchResultCard
@@ -43,19 +37,6 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
         {suggestions}
       </ul>
     );
-  }
-  graphHandler(company: Company) {
-    console.log("Hello");
-    store.dispatch(addGraphAsync(company));
-  }
-  tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
-    for (let ticker of inUseTickers) {
-      if (ticker.symbol === company.symbol.toLowerCase()) {
-        return;
-      }
-    }
-    store.dispatch(new Tickers().RequestMany([company.symbol]));
-    store.dispatch(new SearchSuggestions().clearSuggestions());
   }
 }
 
