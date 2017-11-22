@@ -20,8 +20,8 @@ export class TickerList extends React.Component<TickerListProps, {}> {
   }
   render() {
     const listOfTickers = [...this.props.tickers].map((ticker, index) => (
-      <li key={index.toString()}>
-        <TickerCard price={ticker.price} symbol={ticker.symbol} index={index} />
+      <li key={index}>
+        <TickerCard price={ticker.price} symbol={ticker.symbol}/>
       </li>
     ));
     return <ul className="ticker-list">{listOfTickers}</ul>;
@@ -32,7 +32,7 @@ export class TickerList extends React.Component<TickerListProps, {}> {
     const existingTickers = new Set<Ticker>([...this.props.tickers]);
 
     if (existingTickers.size === 0) {
-      store.dispatch(this.mTickers.AddMany(initSymbols));
+      store.dispatch(this.mTickers.RequestMany(initSymbols));
     }
   }
 }
