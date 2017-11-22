@@ -21,10 +21,13 @@ export class TickerList extends React.Component<TickerListProps, {}> {
   render() {
     const listOfTickers = [...this.props.tickers].map((ticker, index) => (
       <li key={index}>
-        <TickerCard price={ticker.price} symbol={ticker.symbol}/>
+        <TickerCard price={ticker.price} symbol={ticker.symbol} />
       </li>
     ));
-    return <ul className="ticker-list">{listOfTickers}</ul>;
+    return [
+      <div className="ticker-list-header">Tickers by the Minute</div>,
+      <ul className="ticker-list">{listOfTickers}</ul>
+    ];
   }
   componentDidMount() {
     const initSymbols = ["msft", "amd", "nflx"];
