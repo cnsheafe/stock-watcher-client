@@ -12,6 +12,7 @@ import {
 } from "./actions";
 
 import { Company } from "./schema";
+import { Ticker } from '../actions/Tickers';
 
 // Prologue
 // The reducer should accept incoming actions
@@ -25,7 +26,8 @@ describe("When the reducer", () => {
       graphs: [],
       showModal: false,
       modalSymbol: "",
-      tickers: []
+      tickers: new Set<Ticker>(),
+      onTickers: true
     };
   });
 
