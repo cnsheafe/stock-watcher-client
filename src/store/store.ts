@@ -30,7 +30,7 @@ export interface IState {
   graphs: Array<Graph>;
   showModal: boolean;
   modalSymbol: string;
-  tickers: Ticker[];
+  tickers: Set<Ticker>;
   onTickers: boolean;
 }
 
@@ -103,7 +103,7 @@ const initialState: IState = {
   graphs: [],
   showModal: false,
   modalSymbol: "",
-  tickers: [],
+  tickers: new Set<Ticker>(),
   onTickers: true
 };
 
