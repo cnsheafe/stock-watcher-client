@@ -45,7 +45,9 @@ export default class SearchResultCard extends React.Component<
   }
   graphHandler(company: Company) {
     console.log("Hello");
-    store.dispatch(new Graphs().addGraph(company));
+    store.dispatch(new Graphs().addGraph(company)).then(action => {
+      console.log(action);
+    });
   }
   tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
     for (let ticker of inUseTickers) {
