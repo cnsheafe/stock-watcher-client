@@ -26,8 +26,8 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
       <li key={index.toString()}>
         <SearchResultCard
           company={company}
-          suggestionHandler={mHandler}
           tickers={this.props.tickers}
+          onTickers={this.props.onTickers}
         />
       </li>
     ));
@@ -45,6 +45,7 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
     );
   }
   graphHandler(company: Company) {
+    console.log("Hello");
     store.dispatch(addGraphAsync(company));
   }
   tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
