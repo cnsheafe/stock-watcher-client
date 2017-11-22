@@ -33,7 +33,7 @@ export class TickerCard extends React.Component<TickerProps> {
         {priceElm}
         <i
           onClick={e => this.removeTicker(this.props.symbol)}
-          className="material-icons"
+          className="material-icons red700"
         >
           cancel
         </i>
