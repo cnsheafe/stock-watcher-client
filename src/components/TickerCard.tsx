@@ -1,8 +1,8 @@
 import * as React from "react";
-// import {dispatchTickers} from '../actions/dispatchTickers';
 import Tickers from "../actions/Tickers";
-
 import store from "../store/store";
+import '../styles/tickers.scss';
+
 interface TickerProps {
   symbol: string;
   price: number;
@@ -18,11 +18,11 @@ export class TickerCard extends React.Component<TickerProps> {
   render() {
     return (
       <div className="ticker-card">
-        <span>{this.props.symbol}</span>
-        <span>{this.props.price}</span>
-        <button onClick={e => this.removeTicker(this.props.index)}>
-          Remove
-        </button>
+        <span>{this.props.symbol.toUpperCase()}</span>
+        <span>{this.props.price} USD</span>
+        <i onClick={e => this.removeTicker(this.props.index)} className="material-icons">
+        cancel
+        </i>
       </div>
     );
   }
