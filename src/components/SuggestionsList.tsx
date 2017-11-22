@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 import { TickerCard } from "./TickerCard";
 import { addGraphAsync } from "../store/actions";
 import Tickers, { Ticker } from "../actions/Tickers";
+import SearchSuggestions from '../actions/SearchSuggestions';
+import "../styles/suggestions-list.scss";
+
 export interface SearchProps {
   searchResults: Company[];
   onTickers: boolean;
@@ -20,8 +23,12 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
       : this.graphHandler;
 
     const suggestions = this.props.searchResults.map((company, index) => (
-      <li key={index.toString()} className="search-suggestions-item">
-        <SearchResultCard company={company} suggestionHandler={mHandler} tickers={this.props.tickers}/>
+      <li key={index.toString()}>
+        <SearchResultCard
+          company={company}
+          suggestionHandler={mHandler}
+          tickers={this.props.tickers}
+        />
       </li>
     ));
     return (
@@ -47,6 +54,7 @@ export class SuggestionsList extends React.Component<SearchProps, {}> {
       }
     }
     store.dispatch(new Tickers().AddMany([company.symbol]));
+    store.dispatch(new SearchSuggestions().clearSuggestions());
   }
 }
 
