@@ -49,46 +49,6 @@ export const ListSearchResults: ActionCreator<SearchResult> =
   }
 
 // End result dispatches AddGraph
-export const addGraphAsync = 
-  (company: Company) => {
-
-    return function(dispatch: Dispatch<IState>) {
-      const url = '/stockprice';
-      const options = {
-        method: 'POST',
-        cache: 'default',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          symbols: [company.symbol]
-        })
-      };
-
-      return fetch(url,options)
-        .then(res => {
-          return res.json();
-        })
-        .then((results) => {
-          const c = results[company.symbol.toUpperCase()];
-          let dataPoints = [];
-          let labels = [];
-
-          for (var i = c.length - 1; i >= 0 ; i--) {
-            dataPoints.push(c[i].price);
-            labels.push(c[i].timeStamp);
-          }
-
-          dispatch<AddGraph>({
-            type: ADD_GRAPH,
-            company: company,
-            dataPoints: dataPoints,
-            labels: labels
-          });
-        })
-    }
-  }
 
 
 export const removeGraph: ActionCreator<RemoveGraph> = (graphId: string) => {
@@ -126,7 +86,7 @@ export const addWatchAsync =
     );
 
     let watchRequest = new Request(
-      "/notifications/watchprice", {
+      "localhost:5000/notifications/watchprice", {
       method: "POST",
       body: bodyBlob,
       headers: header

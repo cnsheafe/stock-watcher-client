@@ -3,7 +3,7 @@ import { toggleModalDisplay, addWatchAsync } from "../store/actions";
 import { Company } from "../store/schema";
 import store, { IState } from "../store/store";
 import { connect } from "react-redux";
-
+import '../styles/modal.scss';
 export interface ModalProps {
   showModal: boolean,
   modalSymbol: string

@@ -5,42 +5,62 @@ import * as Rx from "rxjs/Rx";
 
 import { Graph, Company } from "./schema";
 import {
-  SEARCH,
   ADD_GRAPH,
   REM_GRAPH,
   TOGGLE_MODAL,
   ADD_WATCH,
-  SearchResult,
   AddGraph,
   RemoveGraph,
   ToggleModalDisplay
 } from "./actions";
 
-// import { Ticker, ADD_TICKERS, AddTickers } from "../actions/fetchPrices";
-import { Ticker, AddTickers, ADD_TICKERS, dispatchTickers} from '../actions/dispatchTickers';
+import {
+  REMOVE_TICKER,
+  UPDATE_TICKER,
+  REQUEST_TICKERS,
+  Ticker,
+  RequestTickers,
+  RemoveTicker,
+  UpdateTicker
+} from "../actions/Tickers";
 
+import {
+  SEARCH_RESULT,
+  CLEAR_RESULT,
+  SearchResult,
+  ClearSearchResults
+} from "../actions/SearchSuggestions";
+
+import { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
 // Shape of the App State
 export interface IState {
   searchResults: Array<Company>;
   graphs: Array<Graph>;
   showModal: boolean;
   modalSymbol: string;
-  tickers: Ticker[];
+  tickers: Set<Ticker>;
+  onTickers: boolean;
 }
 
 // TypeCheck on the reducer
 type ValidAction =
   | SearchResult
+  | ClearSearchResults
   | AddGraph
   | RemoveGraph
   | ToggleModalDisplay
-  | AddTickers;
+  | RequestTickers
+  | RemoveTicker
+  | UpdateTicker
+  | SwitchTab;
 
 export function reducer(state: IState, action: ValidAction): IState {
   switch (action.type) {
-    case SEARCH:
+    case SEARCH_RESULT:
       const searchAction = <SearchResult>action;
       return Object.assign({}, state, { searchResults: searchAction.results });
+    case CLEAR_RESULT:
+      return Object.assign({}, state, { searchResults: [] });
     case ADD_GRAPH:
       // Assigns a graph an id and index and then adds to the list
       const graphAction = <AddGraph>action;
@@ -76,10 +96,40 @@ export function reducer(state: IState, action: ValidAction): IState {
         showModal: !state.showModal,
         modalSymbol: (<ToggleModalDisplay>action).symbol
       });
-    case ADD_TICKERS:
+    case REQUEST_TICKERS:
       return Object.assign({}, state, {
-        tickers: action.tickers
+        tickers: new Set<Ticker>([...state.tickers, ...action.tickers])
       });
+    case REMOVE_TICKER:
+      const remainingTickers = new Set<Ticker>([...state.tickers]);
+      let tickerToRemove: Ticker;
+      remainingTickers.forEach(ticker => {
+        if (ticker.symbol.toLowerCase() === action.symbol.toLowerCase()) {
+          tickerToRemove = ticker;
+        }
+      });
+      remainingTickers.delete(tickerToRemove);
+      return Object.assign({}, state, {
+        tickers: new Set<Ticker>([...remainingTickers])
+      });
+    case UPDATE_TICKER:
+      const updatedTickers = new Set<Ticker>([...state.tickers]);
+      let tickerToUpdate: Ticker;
+      updatedTickers.forEach(ticker => {
+        if (
+          ticker.symbol.toLowerCase() ===
+          action.updatedTicker.symbol.toLowerCase()
+        ) {
+          tickerToUpdate = ticker;
+        }
+      });
+      updatedTickers.delete(tickerToUpdate);
+      updatedTickers.add(action.updatedTicker);
+      return Object.assign({}, state, {
+        tickers: new Set<Ticker>([...updatedTickers])
+      });
+    case SWITCH_TAB:
+      return Object.assign({}, state, { onTickers: action.isTicker });
     default:
       return state;
   }
@@ -90,7 +140,8 @@ const initialState: IState = {
   graphs: [],
   showModal: false,
   modalSymbol: "",
-  tickers: []
+  tickers: new Set<Ticker>(),
+  onTickers: true
 };
 
 export default createStore(reducer, initialState, applyMiddleware(thunk));

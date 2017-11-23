@@ -1,0 +1,48 @@
+@import "grid";
+@import "colors";
+@import "search";
+
+.search-suggestions-list {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  width: 80vw;
+  padding: 5px;
+  margin: auto;
+  list-style: none;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 0;
+  border-width: 2px;
+  background-color: white;
+  font-size: 4vw;
+  margin-bottom: 30px;
+  border-bottom: 3px solid $accent-color;
+  @media screen and (min-width: $small) {
+    font-size: 3vw;
+  }
+  @media screen and (min-width: $medium) {
+    font-size: 1.8vw;
+  }
+  :hover {
+    cursor: pointer;
+    background-color: $hover-color;
+  }
+  .search-suggestions-item {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 3px solid $accent-color;
+    border-bottom: none;
+    padding-top: 8px;
+    align-items: center;
+    .material-icons.purple700 {
+      color: $accent-purple-light-color;
+      margin-right: 8px;
+      margin-left: 5px;
+      font-size: 36px;
+    }
+  }
+  .search-suggestions-item:last-child() {
+    border-bottom: 3px solid $accent-color;
+  }
+}

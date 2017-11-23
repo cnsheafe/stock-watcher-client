@@ -17,7 +17,7 @@ function renderApp() {
         <BrowserRouter basename='/'>
         <div>
           <Route exact path="/" component={TickerPage} />
-          <Route path="/view" component={Body} />
+          <Route path="/graphs" component={Body} />
         </div>
         </BrowserRouter>
       </Provider>

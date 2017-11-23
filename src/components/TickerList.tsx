@@ -1,26 +1,42 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import store from "../store/store";
 import { IState } from "../store/typings";
-// import { Ticker, AddTickers, fetchPrices} from "../actions/fetchPrices";
-import {Ticker, dispatchTickers} from '../actions/dispatchTickers';
-import {TickerCard} from './TickerCard';
+import { TickerCard } from "./TickerCard";
 
-import '../styles/tickers.scss';
+import Tickers, { Ticker } from "../actions/Tickers";
+import "../styles/tickers.scss";
+import PageTabs from "./PageTabs";
 
 export interface TickerListProps {
-  tickers: Ticker[];
+  tickers: Set<Ticker>;
 }
 export class TickerList extends React.Component<TickerListProps, {}> {
+  mTickers: Tickers;
+  constructor(props) {
+    super(props);
+    this.mTickers = new Tickers();
+  }
   render() {
-    const listOfTickers = this.props.tickers.map((ticker, index) => 
-    <li key={index.toString()}>
-      <TickerCard price={ticker.price} symbol={ticker.symbol}/>
-    </li>);
-    return <ul className="ticker-list">{listOfTickers}</ul>;
+    const listOfTickers = [...this.props.tickers].map((ticker, index) => (
+      <li key={index}>
+        <TickerCard price={ticker.price} symbol={ticker.symbol} />
+      </li>
+    ));
+    return [
+      <div className="ticker-list-header">Tickers by the Minute</div>,
+      <ul className="ticker-list">{listOfTickers}</ul>
+    ];
   }
   componentDidMount() {
-    store.dispatch(dispatchTickers(["msft", "amd", "nflx"]));
+    const initSymbols = ["msft", "amd", "nflx"];
+    const validSymbols = new Set<string>();
+    const existingTickers = new Set<Ticker>([...this.props.tickers]);
+
+    if (existingTickers.size === 0) {
+      store.dispatch(this.mTickers.RequestMany(initSymbols));
+    }
   }
 }
 
@@ -29,4 +45,4 @@ function mapStateToProps(state: IState): TickerListProps {
     tickers: state.tickers
   };
 }
-export default connect(mapStateToProps)(TickerList);
+export default withRouter(connect(mapStateToProps)(TickerList));

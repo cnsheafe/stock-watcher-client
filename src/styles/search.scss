@@ -1,84 +1,85 @@
 @import "grid";
 @import "colors";
 .search {
-    @extend .container;
-    margin-top: 5vh;
+  @extend .container;
+  margin-top: 5vh;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+  @media screen and (min-width: $medium) {
+  }
+  .search-label {
+    font-size: 3.8vw;
+    margin-left: 10vw;
+    margin-bottom: 5px;
+    color: $header-color;
+    @media screen and (min-width: $small) {
+      font-size: 2.7vw;
+    }
+    @media screen and (min-width: $medium) {
+      font-size: 1.8vw;
+    }
+    @media screen and (min-width: $large) {
+      margin-left: 10vw;
+    }
+  }
+  .search-input {
+    border: 3px solid $accent-color;
+    box-sizing: border-box;
+    font-size: 4vw;
+    border-radius: 5px;
+    margin: auto;
+    width: 80vw;
+    padding: 5px;
+    @media screen and (min-width: $small) {
+      font-size: 3.3vw;
+    }
+    @media screen and (min-width: $medium) {
+      font-size: 2vw;
+    }
+  }
+  .suggestions-title {
+    @extend .search-label;
+    margin: 15px 0 5px 10vw;
+    font-weight: normal;
+    @media screen and (min-width: $large) {
+      margin-left: 10vw;
+    }
+  }
+  .search-suggestions-list {
+    @extend .search-input;
+    list-style: none;
     flex-direction: column;
-    font-family: "Lato", sans-serif;
-    @media screen and (min-width: $medium) {}
-    .search-label {
-        font-size: 3.8vw;
-        margin-left: 10vw;
-        margin-bottom: 5px;
-        color: $header-color;
-        @media screen and (min-width: $small) {
-            font-size: 2.7vw;
-        }
-        @media screen and (min-width: $medium) {
-            font-size: 1.8vw;
-        }
-        @media screen and (min-width: $large) {
-            margin-left: 10vw;
-        }
+    padding: 0;
+    border-radius: 0;
+    border-width: 2px;
+    background-color: white;
+    font-size: 4vw;
+    margin-bottom: 30px;
+    @media screen and (min-width: $small) {
+      font-size: 3vw;
     }
-    .search-input {
-        border: 3px solid $accent-color;
-        box-sizing: border-box;
-        font-size: 4.0vw;
-        border-radius: 5px;
-        margin: auto;
-        width: 80vw;
-        padding: 5px;
-        @media screen and (min-width: $small) {
-            font-size: 3.3vw;
-        }
-        @media screen and (min-width: $medium) {
-            font-size: 2.0vw;
-        }
+    @media screen and (min-width: $medium) {
+      font-size: 1.8vw;
     }
-    .suggestions-title {
-        @extend .search-label;
-        margin: 15px 0 5px 10vw;
-        font-weight: normal;
-        @media screen and (min-width: $large) {
-            margin-left: 10vw;
-        }
+    :hover {
+      cursor: pointer;
+      background-color: $hover-color;
     }
-    .search-suggestions-list {
-        @extend .search-input;
-        list-style: none;
-        flex-direction: column;
-        padding: 0;
-        border-radius: 0;
-        border-width: 2px;
-        background-color: white;
-        font-size: 4.0vw;
-        margin-bottom: 30px;
-        @media screen and (min-width: $small) {
-            font-size: 3.0vw;
-        }
-        @media screen and (min-width: $medium) {
-            font-size: 1.8vw;
-        }
-         :hover {
-            cursor: pointer;
-            background-color: $hover-color;
-        }
-        .search-suggestions-item {
-            display: flex;
-            box-sizing: border-box;
-            border-top: 1px solid gray;
-            padding-top: 8px;
-            align-items: center;
-            .material-icons.purple700 {
-                color: $accent-purple-light-color;
-                margin-right: 8px;
-                margin-left: 5px;
-                font-size: 36px;
-            }
-        }
-        .search-suggestions-item:first-child {
-            border-top: 0;
-        }
+    .search-suggestions-item {
+      display: flex;
+      box-sizing: border-box;
+      border-top: 1px solid gray;
+      padding-top: 8px;
+      align-items: center;
+      .material-icons.purple700 {
+        color: $accent-purple-light-color;
+        margin-right: 8px;
+        margin-left: 5px;
+        font-size: 36px;
+      }
     }
+    .search-suggestions-item:first-child {
+      border-top: 0;
+    }
+  }
 }

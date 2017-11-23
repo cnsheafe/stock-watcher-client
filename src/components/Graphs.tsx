@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { removeGraph, toggleModalDisplay } from "../store/actions";
 import store, { IState } from "../store/store";
 import { Graph, DataPoints } from "../store/schema";
-
+import '../styles/graphs.scss';
 interface GraphsProps {
   graphs: Array<Graph>
 }

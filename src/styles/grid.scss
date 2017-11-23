@@ -3,7 +3,10 @@ $medium: 768px;
 $large: 992px;
 
 .container {
-    display: flex;
-    align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
+.hide {
+  display: none;
+}
