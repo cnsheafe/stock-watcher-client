@@ -8,7 +8,7 @@ module.exports = merge(common, {
   devtool: "source-map",
   devServer: {
     contentBase: "./dist",
-    port: process.env.$PORT || 8080
+    port: process.env.PORT || 8080
   },
   plugins: [
     new UglifyJsPlugin(),
