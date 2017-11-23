@@ -11,12 +11,11 @@ export class TickerCard extends React.Component<TickerProps> {
   timerId;
   mTickers: Tickers;
 
-    constructor(props: TickerProps) {
-      super(props);
-      this.mTickers = new Tickers();
-    }
+  constructor(props: TickerProps) {
+    super(props);
+    this.mTickers = new Tickers();
+  }
   render() {
-
     const priceElm =
       this.props.price === 0 ? (
         <span className="loading-anim">
@@ -30,13 +29,16 @@ export class TickerCard extends React.Component<TickerProps> {
     return (
       <div className="ticker-card">
         <span>{this.props.symbol.toUpperCase()}</span>
-        {priceElm}
-        <i
-          onClick={e => this.removeTicker(this.props.symbol)}
-          className="material-icons red700"
-        >
-          cancel
-        </i>
+        <span>{priceElm}</span>
+        <span className="ticker-delete">
+          <span>DEL</span>
+          <i
+            onClick={e => this.removeTicker(this.props.symbol)}
+            className="material-icons red700"
+          >
+            cancel
+          </i>
+        </span>
       </div>
     );
   }
@@ -47,9 +49,7 @@ export class TickerCard extends React.Component<TickerProps> {
   componentDidMount() {
     this.updateHandler(this.props.symbol);
     this.timerId = setInterval(() => {
-      store.dispatch(
-        new Tickers().UpdateOne(this.props.symbol)
-      );
+      store.dispatch(new Tickers().UpdateOne(this.props.symbol));
     }, 1e3 * 60);
   }
   componentWillUnmount() {
@@ -57,10 +57,8 @@ export class TickerCard extends React.Component<TickerProps> {
   }
 
   updateHandler(symbol: string) {
-    store.dispatch(
-      new Tickers().UpdateOne(symbol)
-    ).then(action => {
-      if(!action.updatedTicker.price) {
+    store.dispatch(new Tickers().UpdateOne(symbol)).then(action => {
+      if (!action.updatedTicker.price) {
         this.updateHandler(symbol);
       }
     });
