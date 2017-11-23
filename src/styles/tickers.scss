@@ -41,10 +41,14 @@
     align-self: center;
     font-size: 30px;
   }
-  @media screen and(min-width: 768px) {
-    // width: 80%;
+
+  .ticker-delete {
+    span {
+      margin-right: 15px;
+    }
   }
 }
+
 
 .loading-anim {
   .line {
