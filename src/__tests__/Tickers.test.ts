@@ -43,7 +43,7 @@ describe("Tickers", function() {
         console.log(actions);
         expect(actions).toEqual({
           type: UPDATE_TICKER,
-          updatedTickers: {
+          updatedTicker: {
             symbol: "msft",
             price: 10
           }
