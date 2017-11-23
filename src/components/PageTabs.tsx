@@ -1,34 +1,43 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import TabSwitch from "../actions/TabSwitch";
 import store from "../store/store";
 
 import "../styles/page-tabs.scss";
+
 export default class PageTabs extends React.Component {
   tabSwitch: TabSwitch;
-  constructor() {
-    super(null);
+  constructor(props) {
+    super(props);
     this.tabSwitch = new TabSwitch();
   }
+
   render() {
-    return [
+    return (
       <ul className="page-tabs">
-        <li>
-          <Link to="/" onClick={e => this.switchHandler(true)}>
+        <li className="ticker-link">
+          <NavLink
+            exact to="/"
+            onClick={e => this.switchHandler(true)}
+            activeClassName="on-page"
+          >
             Tickers
-          </Link>
+          </NavLink>
         </li>
-        <li>
-          <Link to="/graphs" onClick={e => this.switchHandler(false)}>
+        <li className="graph-link">
+          <NavLink
+            exact to="/graphs"
+            onClick={e => this.switchHandler(false)}
+            activeClassName="on-page"
+          >
             Graphs
-          </Link>
+          </NavLink>
         </li>
       </ul>
-    ];
+    );
   }
 
   switchHandler(toTicker: boolean) {
-    console.log("switch!");
     store.dispatch(this.tabSwitch.switchPage(toTicker));
   }
 }
