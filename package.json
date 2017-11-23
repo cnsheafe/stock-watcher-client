@@ -4,14 +4,19 @@
   "description": "Template for webpack",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "prod": "webpack-dev-server --open --config webpack.prod.js",
     "test": "jest",
     "lint": "tslint -c tsconfig.json 'src/**/*.{ts,tsx}'",
     "pretest": "npm run lint"
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
@@ -29,6 +34,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "6.24.1",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
     "node-sass": "^4.7.2",
     "react-hot-loader": "^3.1.3",
     "redux-mock-store": "^1.3.0",
@@ -36,9 +42,11 @@
     "style-loader": "^0.19.0",
     "ts-jest": "^21.2.3",
     "typescript": "^2.6.1",
+    "uglifyjs-webpack-plugin": "^1.1.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4",
-    "webpack-hot-middleware": "^2.20.0"
+    "webpack-hot-middleware": "^2.20.0",
+    "webpack-merge": "^4.1.1"
   },
   "dependencies": {
     "@types/enzyme": "^3.1.4",

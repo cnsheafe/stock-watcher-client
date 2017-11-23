@@ -14,83 +14,89 @@ export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const ADD_WATCH = "ADD_WATCH";
 
 // Action Interfaces
-export interface LoginAction { type: "LOGGED_IN" }
+export interface LoginAction {
+  type: "LOGGED_IN";
+}
 
 export interface SearchResult {
-  type: "SEARCH_RESULT",
-  results: Array<Company>
+  type: "SEARCH_RESULT";
+  results: Array<Company>;
 }
 
 export interface AddGraph {
-  type: "ADD_GRAPH",
-  company: Company,
-  dataPoints: Array<number>,
-  labels: Array<string>
+  type: "ADD_GRAPH";
+  company: Company;
+  dataPoints: Array<number>;
+  labels: Array<string>;
 }
 
 export interface RemoveGraph {
-  type: "REMOVE_GRAPH",
-  graphId: string
+  type: "REMOVE_GRAPH";
+  graphId: string;
 }
 
 export interface ToggleModalDisplay {
-  type: "TOGGLE_MODAL",
-  symbol?: string
+  type: "TOGGLE_MODAL";
+  symbol?: string;
 }
 
 // Action for updating state with list of matching company names from database
 // Used on Search.tsx
-export const ListSearchResults: ActionCreator<SearchResult> =
-  (results: Array<Company>) => {
-    return {
-      type: SEARCH,
-      results: results
-    }
-  }
+export const ListSearchResults: ActionCreator<SearchResult> = (
+  results: Array<Company>
+) => {
+  return {
+    type: SEARCH,
+    results: results
+  };
+};
 
 // End result dispatches AddGraph
-
 
 export const removeGraph: ActionCreator<RemoveGraph> = (graphId: string) => {
   return {
     type: REM_GRAPH,
     graphId: graphId
-  }
-}
+  };
+};
 
-export const toggleModalDisplay: ActionCreator<ToggleModalDisplay> = (symbol?: string) => {
+export const toggleModalDisplay: ActionCreator<ToggleModalDisplay> = (
+  symbol?: string
+) => {
   return {
     type: TOGGLE_MODAL,
     symbol: symbol
-  }
-}
+  };
+};
 
 // End result returns a boolean and dispatches a ToggleModalAction
-export const addWatchAsync = 
-  (symbol: string, 
-  targetPrice: number, 
-  phoneNumber: string) => {
+export const addWatchAsync = (
+  symbol: string,
+  targetPrice: number,
+  phoneNumber: string
+) => {
   return function(dispatch: Dispatch<IState>): Promise<boolean> {
     let header;
-      header = new Headers({"Content-Type": "application/json"});
-      
-    let bodyBlob = new Blob(
-      [
-        JSON.stringify(
-        {
-          symbol: symbol,
-          phone: phoneNumber,
-          price: targetPrice
-        })
-      ]
-    );
+    header = new Headers({ "Content-Type": "application/json" });
+
+    let bodyBlob = new Blob([
+      JSON.stringify({
+        symbol: symbol,
+        phone: phoneNumber,
+        price: targetPrice
+      })
+    ]);
 
     let watchRequest = new Request(
-      "localhost:5000/notifications/watchprice", {
-      method: "POST",
-      body: bodyBlob,
-      headers: header
-    });
+      process.env.NODE_ENV === "production"
+        ? "https://stock-watcher-app.herokuapp.com/stockprice"
+        : "http://localhost:5000/watch",
+      {
+        method: "POST",
+        body: bodyBlob,
+        headers: header
+      }
+    );
 
     return fetch(watchRequest)
       .then(res => {
@@ -105,5 +111,5 @@ export const addWatchAsync =
         }
         return false;
       });
-  }
-}
+  };
+};
