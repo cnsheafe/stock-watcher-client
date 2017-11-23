@@ -45,7 +45,6 @@ export class TickerCard extends React.Component<TickerProps> {
   }
 
   componentDidMount() {
-    console.log(this.props.symbol);
     this.updateHandler(this.props.symbol);
     this.timerId = setInterval(() => {
       store.dispatch(
@@ -61,7 +60,7 @@ export class TickerCard extends React.Component<TickerProps> {
     store.dispatch(
       new Tickers().UpdateOne(symbol)
     ).then(action => {
-      if(!action.updatedTicker) {
+      if(!action.updatedTicker.price) {
         this.updateHandler(symbol);
       }
     });
