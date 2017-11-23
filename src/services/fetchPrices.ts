@@ -1,7 +1,7 @@
 const fetch = require("isomorphic-fetch");
 
 export function fetchPrices(symbols: string[]) {
-  const url = "http://localhost:5000/stockprice";
+  const url = "https://stock-watcher-app.herokuapp.com/stockprice";
   const params = {
     symbols: symbols
   };
