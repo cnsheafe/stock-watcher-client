@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "prod": "npm run build && node startup.js",
+    "prod": "node startup.js",
+    "postinstall": "npm run build",
     "test": "jest",
     "lint": "tslint -c tsconfig.json 'src/**/*.{ts,tsx}'",
     "pretest": "npm run lint"
