@@ -59,12 +59,10 @@ class Graphs extends React.Component<GraphsProps, {}> {
     this.props.graphs.forEach(graph => {
       let context = document.getElementById(graph.graphId) as HTMLCanvasElement;
       let labels = graph.labels.map<string>((label, index) => {
-        /*
-        Uncomment when Daily API @AlphaVantage becomes live again
+        // Uncomment when Daily API @AlphaVantage becomes live again
         let tmp = label.split(" ")[1];
         return tmp.substring(0, tmp.length-3);
-        */
-        return label;
+        // Otherwise return label
       });
       let config: Chart.ChartConfiguration = ChartDataConfigurationBuilder("line", graph.dataset, labels);
 
