@@ -4,7 +4,7 @@ import store from "../store/store";
 import "../styles/suggestion-card.scss";
 import Tickers, { Ticker } from "../actions/Tickers";
 import SearchSuggestions from "../actions/SearchSuggestions";
-import Graphs from '../actions/Graphs';
+import GraphAction from '../actions/GraphAction';
 
 interface ResultCardProps {
   tickers: Set<Ticker>;
@@ -44,7 +44,7 @@ export default class SearchResultCard extends React.Component<
     return cardElm;
   }
   graphHandler(company: Company) {
-    store.dispatch(new Graphs().addGraph(company));
+    store.dispatch(new GraphAction().addGraph(company));
   }
   tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
     for (let ticker of inUseTickers) {

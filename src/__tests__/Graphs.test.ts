@@ -1,9 +1,9 @@
-import Graphs, { AddGraph, ADD_GRAPH } from "../actions/Graphs";
+import GraphAction, { AddGraph, ADD_GRAPH } from "../actions/GraphAction";
 import { Company } from "../store/schema";
 import { Dispatch } from "redux";
 import { IState } from "../store/store";
 import { IScheduler } from "rxjs/Scheduler";
-class mockGraphAction extends Graphs {
+class mockGraphAction extends GraphAction {
   addGraph(company: Company) {
     return super.addGraph(company);
   }
@@ -17,7 +17,7 @@ class mockGraphAction extends Graphs {
   }
 }
 
-describe("Graphs Action", function() {
+describe("Graph Action", function() {
   test("it should return object of type AddGraph", () => {
     const company: Company = {
       symbol: "msft",
