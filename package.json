@@ -26,6 +26,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chart.js": "^2.7.0",
     "@types/react-hot-loader": "^3.0.5",
     "@types/webpack": "^3.8.1",
     "@types/webpack-env": "^1.13.2",
