@@ -1,20 +1,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
-
 import GraphCard from "./GraphCard";
 
 import store, { IState } from "../store/store";
 import { Graph } from "../store/schema";
 import "../styles/graphs.scss";
 interface GraphsProps {
-  graphs: Array<Graph>;
+  graphs: Graph[];
 }
 
 // Container Component for a list of graphs
 class Graphs extends React.Component<GraphsProps, {}> {
 
   render() {
-    let graphs = this.props.graphs.map<JSX.Element>(
+    const graphs = [...this.props.graphs].map<JSX.Element>(
       (graph: Graph, index: number) => {
         return (
           <li key={index} className="graphs-list-item">
@@ -29,9 +28,6 @@ class Graphs extends React.Component<GraphsProps, {}> {
         );
       }
     );
-
-    graphs = graphs.reverse();
-
     return (
       <ul id="graphs" className={graphs.length > 0 ? "graphs-list" : "hide"}>
         {graphs}

@@ -4,15 +4,6 @@ import thunk from "redux-thunk";
 import * as Rx from "rxjs/Rx";
 
 import { Graph, Company } from "./schema";
-import {
-  ADD_GRAPH,
-  REM_GRAPH,
-  TOGGLE_MODAL,
-  ADD_WATCH,
-  AddGraph,
-  RemoveGraph,
-  ToggleModalDisplay
-} from "./actions";
 
 import {
   REMOVE_TICKER,
@@ -24,6 +15,17 @@ import {
   UpdateTicker
 } from "../actions/Tickers";
 
+import {
+  ADD_GRAPH,
+  REMOVE_GRAPH,
+  AddGraph,
+  RemoveGraph
+} from "../actions/GraphAction";
+import {
+  ADD_WATCH,
+  TOGGLE_MODAL,
+  ToggleModalDisplay
+} from "../actions/ModalAction";
 import {
   SEARCH_RESULT,
   CLEAR_RESULT,
@@ -63,32 +65,31 @@ export function reducer(state: IState, action: ValidAction): IState {
       return Object.assign({}, state, { searchResults: [] });
     case ADD_GRAPH:
       // Assigns a graph an id and index and then adds to the list
-      const graphAction = <AddGraph>action;
       const count: number = state.graphs.length;
       const index: number = count > 0 ? state.graphs[count - 1].index + 1 : 0;
-      const newGraph: Graph = {
+
+      const newGraphs = [...state.graphs];
+
+      newGraphs.push({
         index: index,
         graphId: `graph${index}`,
-        company: graphAction.company,
-        dataset: graphAction.dataPoints,
-        labels: graphAction.labels
-      };
+        company: action.company,
+        dataset: action.dataPoints,
+        labels: action.labels
+      });
 
       return Object.assign({}, state, {
-        graphs: [...state.graphs, newGraph],
+        graphs: newGraphs,
         searchResults: []
       });
 
-    case REM_GRAPH:
-      const indexToRemove = state.graphs.findIndex(elm => {
-        return elm.graphId === (<RemoveGraph>action).graphId;
+    case REMOVE_GRAPH:
+      const newList = [...state.graphs].filter(graph => {
+        return graph.index !== action.index;
       });
 
-      const newGraphList = [...state.graphs];
-      newGraphList.splice(indexToRemove, 1);
-
       return Object.assign({}, state, {
-        graphs: newGraphList
+        graphs: [...newList]
       });
 
     case TOGGLE_MODAL:

@@ -2,12 +2,13 @@ import * as React from "react";
 import * as Chart from "chart.js";
 
 import GraphAction from "../actions/GraphAction";
-import { removeGraph, toggleModalDisplay } from "../store/actions";
+import ModalAction from "../actions/ModalAction";
 import store, { IState } from "../store/store";
 import { Graph, Company, DataPoints } from "../store/schema";
 
 export default class GraphCard extends React.Component<Graph> implements Graph {
   graphAction: GraphAction;
+  modalAction: ModalAction;
   graphId: string;
   index: number;
   company: Company;
@@ -17,11 +18,13 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
   constructor(props) {
     super(props);
     this.graphAction = new GraphAction();
-    this.graphId = this.props.graphId;
-    this.index = this.props.index;
-    this.company = this.props.company;
-    this.dataset = this.props.dataset;
-    this.labels = this.props.labels;
+    this.modalAction = new ModalAction();
+
+    // this.graphId = this.props.graphId;
+    // this.index = this.props.index;
+    // this.company = this.props.company;
+    // this.dataset = this.props.dataset;
+    // this.labels = this.props.labels;
   }
 
   render() {
@@ -30,7 +33,6 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
       <div className="graph-controls">
         <button
           className="remove"
-          data-id={this.graphId}
           onClick={e => this.handleRemove(e)}
         >
           <i className="material-icons red-remove700">remove_circle</i>
@@ -76,15 +78,41 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
     let chart = new Chart(context, config);
   }
 
+  componentDidUpdate() {
+    let context = document.getElementById(this.graphId) as HTMLCanvasElement;
+
+    let parsedLabels = this.labels.map<string>((label, index) => {
+      // Uncomment when Daily API @AlphaVantage becomes live again
+      let tmp = label.split(" ")[1];
+      return tmp.substring(0, tmp.length - 3);
+      // Otherwise, return label
+    });
+
+    let config: Chart.ChartConfiguration = this.ChartDataConfigurationBuilder(
+      "line",
+      this.dataset,
+      this.labels
+    );
+    config.options = {
+      maintainAspectRatio: false
+    };
+
+    config.options.title = {
+      display: true,
+      fontFamily: "'Lato', sans-serif",
+      text: this.company.name
+    };
+    let chart = new Chart(context, config);
+  }
+
   handleRemove(event: React.MouseEvent<HTMLButtonElement>) {
-    let target = event.target as HTMLElement;
-    let graphId = target.dataset.id;
-    store.dispatch(removeGraph(graphId));
+    console.log(this.props.index);
+    store.dispatch(this.graphAction.removeGraph(this.props.index));
     document.getElementById("search-companies").focus();
   }
 
   handleWatch(symbol: string) {
-    store.dispatch(toggleModalDisplay(symbol));
+    store.dispatch(this.modalAction.toggleDisplay(symbol));
   }
   ChartDataConfigurationBuilder(
     type: Chart.ChartType,

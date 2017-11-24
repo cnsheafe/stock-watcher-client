@@ -5,6 +5,7 @@ import fetchCompanies from "../services/fetchCompanies";
 import { fetchPrices } from "../services/fetchPrices";
 
 export const ADD_GRAPH = "ADD_GRAPH";
+export const REMOVE_GRAPH = "REMOVE_GRAPH";
 
 export interface AddGraph {
   type: "ADD_GRAPH";
@@ -13,7 +14,13 @@ export interface AddGraph {
   labels: Array<string>;
 }
 
-export default class Graphs {
+export interface RemoveGraph {
+  type: "REMOVE_GRAPH";
+  index: number;
+}
+
+export default class GraphAction {
+
   addGraph(company: Company) {
     return (dispatch: Dispatch<IState>) => {
       return this.fetchPriceHelper(company).then(data => {
@@ -26,6 +33,16 @@ export default class Graphs {
       });
     };
   }
+
+  removeGraph(index: number) {
+    return (dispatch: Dispatch<IState>) => {
+      return dispatch<RemoveGraph>({
+        type: REMOVE_GRAPH,
+        index: index
+      });
+    };
+  }
+
   protected fetchPriceHelper(company) {
     return fetchPrices([company.symbol]).then(results => {
       const c = results[company.symbol.toUpperCase()];

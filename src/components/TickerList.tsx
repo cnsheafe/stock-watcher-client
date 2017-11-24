@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import store from "../store/store";
-import { IState } from "../store/typings";
+import { IState } from "../store/store";
 import { TickerCard } from "./TickerCard";
 
 import Tickers, { Ticker } from "../actions/Tickers";
