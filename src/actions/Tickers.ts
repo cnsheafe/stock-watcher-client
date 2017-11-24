@@ -27,7 +27,7 @@ export interface RemoveTicker {
 export default class Tickers {
 
   RequestMany(symbols: string[]) {
-    return function(dispatch: Dispatch<IState>) {
+    return (dispatch: Dispatch<IState>) => {
       const tickers = new Set<Ticker>();
       symbols.forEach(symbol => {
         tickers.add({
@@ -44,7 +44,7 @@ export default class Tickers {
   }
 
   RemoveOne(symbol: string) {
-    return function(dispatch: Dispatch<IState>) {
+    return (dispatch: Dispatch<IState>) => {
       return dispatch<RemoveTicker>({
         type: REMOVE_TICKER,
         symbol: symbol

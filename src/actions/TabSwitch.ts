@@ -8,7 +8,7 @@ export interface SwitchTab {
 }
 export default class TabSwitch {
   switchPage(toTicker: boolean) {
-    return function(dispatch: Dispatch<IState>) {
+    return (dispatch: Dispatch<IState>) => {
       return dispatch<SwitchTab>({
         type: SWITCH_TAB,
         isTicker: toTicker
