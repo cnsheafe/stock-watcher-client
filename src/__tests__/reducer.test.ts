@@ -12,15 +12,25 @@ import {
   REMOVE_GRAPH,
   RemoveGraph
 } from "../actions/GraphAction";
+import { TOGGLE_MODAL, ToggleModalDisplay } from "../actions/ModalAction";
+import {
+  Ticker,
+  REQUEST_TICKERS,
+  UPDATE_TICKER,
+  RequestTickers,
+  RemoveTicker,
+  UpdateTicker,
+  REMOVE_TICKER
+} from "../actions/Tickers";
+
 import { Company } from "../store/schema";
-import { Ticker } from "../actions/Tickers";
 
-// // Prologue
-// // The reducer should accept incoming actions
-// //  and return the updated state correctly
-
+// Prologue
+// The reducer should accept incoming actions
+// and return the updated state correctly
 describe("Reducer", function() {
   let mockState: IState;
+
   const mockCompanyMSFT: Company = {
     symbol: "msft",
     name: "Microsoft"
@@ -30,6 +40,24 @@ describe("Reducer", function() {
     symbol: "amd",
     name: "AMD"
   };
+
+  const mockTickers: Ticker[] = [
+    {
+      symbol: "msft",
+      price: 10.0
+    },
+    {
+      symbol: "amd",
+      price: 5.0
+    }
+  ];
+
+  const toggleModal = (): ToggleModalDisplay => {
+    return {
+      type: TOGGLE_MODAL
+    };
+  };
+
   const addGraph = (company: Company): AddGraph => {
     return {
       type: ADD_GRAPH,
@@ -38,10 +66,35 @@ describe("Reducer", function() {
       labels: ["a", "b", "c"]
     };
   };
+
   const removeGraph = (index): RemoveGraph => {
     return {
       type: REMOVE_GRAPH,
       index: index
+    };
+  };
+
+  const addTickers = (tickers: Ticker[]): RequestTickers => {
+    return {
+      type: REQUEST_TICKERS,
+      tickers: new Set<Ticker>(tickers)
+    };
+  };
+
+  const removeTicker = (symbol: string): RemoveTicker => {
+    return {
+      type: REMOVE_TICKER,
+      symbol: symbol
+    };
+  };
+
+  const updateTicker = (symbol: string): UpdateTicker => {
+    return {
+      type: UPDATE_TICKER,
+      updatedTicker: {
+        symbol: "msft",
+        price: 15.0
+      }
     };
   };
 
@@ -75,11 +128,6 @@ describe("Reducer", function() {
       const newState = reducer(mockState, searchAction);
       expect(newState.searchResults).toHaveLength(searchAction.results.length);
       expect(newState.searchResults).toEqual(searchAction.results);
-      // expect(newState).toEqual(
-      //   Object.assign({}, mockState, {
-      //     searchResults: searchAction.results
-      //   })
-      // );
     });
   });
 
@@ -125,6 +173,60 @@ describe("Reducer", function() {
           labels: ["a", "b", "c"]
         }
       ]);
+    });
+  });
+
+  describe("TOGGLE_MODAL", function() {
+    test("modal state should be toggled to true", function() {
+      let newState = reducer(mockState, toggleModal());
+      expect(newState.showModal).toBe(true);
+    });
+  });
+
+  describe("REQUEST_TICKERS", function() {
+    const mockTickers: Ticker[] = [
+      {
+        symbol: "msft",
+        price: 10.0
+      },
+      {
+        symbol: "amd",
+        price: 5.0
+      }
+    ];
+    test("tickers should be non-empty and length 2", function() {
+      let newState = reducer(mockState, addTickers(mockTickers));
+      const myTickers = [...newState.tickers];
+      expect(myTickers).toHaveLength(2);
+      expect(myTickers).toEqual(mockTickers);
+    });
+  });
+  describe("REMOVE_TICKERS", function() {
+    test("tickers should have length 1", function() {
+      let newState = reducer(mockState, addTickers(mockTickers));
+      newState = reducer(newState, removeTicker("msft"));
+      const remainingTickers = [...newState.tickers];
+      expect(remainingTickers).toHaveLength(1);
+      expect(remainingTickers).toEqual([
+        {
+          symbol: "amd",
+          price: 5.0
+        }
+      ]);
+    });
+  });
+  describe("UPDATE_TICKER", function() {
+    test("msft ticker price should update from 10 to 15", function() {
+      let newState = reducer(mockState, addTickers(mockTickers));
+      newState = reducer(mockState, updateTicker("msft"));
+      const remainingTickers = [...newState.tickers];
+      const freshTickers = [...mockTickers];
+      freshTickers[0].price = 15.0;
+      console.log(mockTickers);
+      console.log(freshTickers);
+      console.log(remainingTickers);
+      expect(remainingTickers).toHaveLength(2);
+      expect(remainingTickers).toEqual(freshTickers);
     });
   });
 });
