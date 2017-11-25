@@ -22,8 +22,8 @@ import {
   UpdateTicker,
   REMOVE_TICKER
 } from "../actions/Tickers";
-
 import { Company } from "../store/schema";
+import TabSwitch, { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
 
 // Prologue
 // The reducer should accept incoming actions
@@ -97,6 +97,12 @@ describe("Reducer", function() {
       }
     };
   };
+  const switchTab = (): SwitchTab => {
+    return {
+      type: SWITCH_TAB,
+      isTicker: false
+    }
+  }
 
   beforeEach(function() {
     mockState = {
@@ -216,17 +222,20 @@ describe("Reducer", function() {
     });
   });
   describe("UPDATE_TICKER", function() {
-    test("msft ticker price should update from 10 to 15", function() {
+    test("should update msft ticker price from 10 to 15", function() {
       let newState = reducer(mockState, addTickers(mockTickers));
-      newState = reducer(mockState, updateTicker("msft"));
+      newState = reducer(newState, updateTicker("msft"));
       const remainingTickers = [...newState.tickers];
-      const freshTickers = [...mockTickers];
-      freshTickers[0].price = 15.0;
       console.log(mockTickers);
-      console.log(freshTickers);
       console.log(remainingTickers);
       expect(remainingTickers).toHaveLength(2);
-      expect(remainingTickers).toEqual(freshTickers);
+      expect(remainingTickers[0].price).toEqual(15);
     });
   });
+  describe("SWITCH_TAB", function() {
+    test("should return state with onTickers false", function() {
+      const newState = reducer(mockState, switchTab());
+      expect(newState.onTickers).toBe(false);
+    })
+  })
 });
