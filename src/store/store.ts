@@ -34,6 +34,7 @@ import {
 } from "../actions/SearchSuggestions";
 
 import { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
+
 // Shape of the App State
 export interface IState {
   searchResults: Array<Company>;
@@ -114,20 +115,27 @@ export function reducer(state: IState, action: ValidAction): IState {
         tickers: new Set<Ticker>([...remainingTickers])
       });
     case UPDATE_TICKER:
-      const updatedTickers = new Set<Ticker>([...state.tickers]);
-      let tickerToUpdate: Ticker;
-      updatedTickers.forEach(ticker => {
+      const updatedTickers = new Set<Ticker>();
+      [...state.tickers].forEach((ticker) => {
         if (
           ticker.symbol.toLowerCase() ===
           action.updatedTicker.symbol.toLowerCase()
         ) {
-          tickerToUpdate = ticker;
+          updatedTickers.add({
+            symbol: action.updatedTicker.symbol.toLowerCase(),
+            price: action.updatedTicker.price
+          })
+        }
+        else {
+          updatedTickers.add({
+            symbol: ticker.symbol,
+            price: ticker.price
+          })
         }
       });
-      updatedTickers.delete(tickerToUpdate);
-      updatedTickers.add(action.updatedTicker);
+
       return Object.assign({}, state, {
-        tickers: new Set<Ticker>([...updatedTickers])
+        tickers: updatedTickers
       });
     case SWITCH_TAB:
       return Object.assign({}, state, { onTickers: action.isTicker });

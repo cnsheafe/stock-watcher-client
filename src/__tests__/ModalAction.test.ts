@@ -23,8 +23,7 @@ describe("Modal Action", function() {
         .addWatch("msft", 10, "123")(mock)
         .then(action => {
           expect(action).toEqual({
-            type: TOGGLE_MODAL,
-            symbol: "msft"
+            type: TOGGLE_MODAL
           });
         });
     });
