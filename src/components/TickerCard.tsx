@@ -42,9 +42,6 @@ export class TickerCard extends React.Component<TickerProps> {
       </div>
     );
   }
-  removeTicker(symbol: string) {
-    store.dispatch(this.mTickers.RemoveOne(symbol));
-  }
 
   componentDidMount() {
     this.updateHandler(this.props.symbol);
@@ -56,11 +53,15 @@ export class TickerCard extends React.Component<TickerProps> {
     clearInterval(this.timerId);
   }
 
-  updateHandler(symbol: string) {
+  protected updateHandler(symbol: string) {
     store.dispatch(new Tickers().UpdateOne(symbol)).then(action => {
       if (!action.updatedTicker.price) {
         this.updateHandler(symbol);
       }
     });
+  }
+
+  protected removeTicker(symbol: string) {
+    store.dispatch(this.mTickers.RemoveOne(symbol));
   }
 }
