@@ -1,12 +1,12 @@
 import { Dispatch } from "redux";
-import { IState } from "../store/store";
+import { IState } from "../../store/store";
 
 import Tickers, {
   UPDATE_TICKER,
   REQUEST_TICKERS,
   REMOVE_TICKER,
   Ticker
-} from "../actions/Tickers";
+} from "../../actions/Tickers";
 
 describe("Tickers", function() {
   const mock: Dispatch<IState> = function(action) {

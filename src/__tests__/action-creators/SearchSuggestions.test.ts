@@ -1,8 +1,8 @@
 import SearchSuggestions, {
   SEARCH_RESULT,
   CLEAR_RESULT
-} from "../actions/SearchSuggestions";
-import { IState } from "../store/store";
+} from "../../actions/SearchSuggestions";
+import { IState } from "../../store/store";
 import { Dispatch } from "redux";
 
 describe("SearchSuggestions", function() {
