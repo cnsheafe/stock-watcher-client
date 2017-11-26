@@ -144,7 +144,7 @@ export class Modal extends React.Component<ModalProps, {}> {
     }
   }
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  protected handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const symbol = this.props.modalSymbol;
     const price = +(document.getElementById("modal-price") as HTMLInputElement)
