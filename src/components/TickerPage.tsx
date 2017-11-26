@@ -5,6 +5,12 @@ import SuggestionsList from "./SuggestionsList";
 
 export default class extends React.Component {
   render() {
-    return [<Search />, <SuggestionsList />, <TickerList />];
+    return (
+      <section>
+        <Search />
+        <SuggestionsList />
+        <TickerList />
+      </section>
+    );
   }
 }
