@@ -1,5 +1,5 @@
 import * as React from "react";
-import ModalAction from "../actions/ModalAction";
+import ModalAction from "../action-creators/ModalAction";
 // import { toggleModalDisplay, addWatchAsync } from "../store/actions";
 import { Company } from "../store/schema";
 import store, { IState } from "../store/store";

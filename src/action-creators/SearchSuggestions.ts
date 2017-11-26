@@ -1,7 +1,7 @@
 import { IState } from "../store/store";
 import { ActionCreator, Dispatch } from "redux";
 import { Company } from "../store/schema";
-import fetchCompanies from "../services/fetchCompanies";
+import fetchCompanies from "../network-calls/fetchCompanies";
 
 export const SEARCH_RESULT = "SEARCH_RESULT";
 export const CLEAR_RESULT = "CLEAR_RESULT";

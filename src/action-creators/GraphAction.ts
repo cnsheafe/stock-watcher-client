@@ -1,8 +1,8 @@
 import { IState } from "../store/store";
 import { ActionCreator, Dispatch } from "redux";
 import { Company } from "../store/schema";
-import fetchCompanies from "../services/fetchCompanies";
-import { fetchPrices } from "../services/fetchPrices";
+import fetchCompanies from "../network-calls/fetchCompanies";
+import { fetchPrices } from "../network-calls/fetchPrices";
 
 export const ADD_GRAPH = "ADD_GRAPH";
 export const REMOVE_GRAPH = "REMOVE_GRAPH";

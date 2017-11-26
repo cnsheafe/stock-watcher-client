@@ -1,12 +1,12 @@
 import { Dispatch } from "redux";
 import { IState } from "../../store/store";
 
-import Tickers, {
+import TickerAction, {
   UPDATE_TICKER,
   REQUEST_TICKERS,
   REMOVE_TICKER,
   Ticker
-} from "../../actions/Tickers";
+} from "../../action-creators/TickerAction";
 
 describe("Tickers", function() {
   const mock: Dispatch<IState> = function(action) {
@@ -15,7 +15,7 @@ describe("Tickers", function() {
 
   describe("RequestMany", function() {
     test("it should return object of type RequestTickers", function() {
-      const result = new Tickers().RequestMany(["msft", "amd"]);
+      const result = new TickerAction().RequestMany(["msft", "amd"]);
       console.log(result(mock));
       const mockTickers: Ticker[] = [
         { symbol: "msft", price: 0 },
@@ -28,7 +28,7 @@ describe("Tickers", function() {
 
   describe("RemoveOne", function() {
     test("it should return object of type RemoveTicker", function() {
-      const result = new Tickers().RemoveOne("msft")(mock);
+      const result = new TickerAction().RemoveOne("msft")(mock);
       expect(result).toEqual({
         type: REMOVE_TICKER,
         symbol: "msft"
@@ -53,7 +53,7 @@ describe("Tickers", function() {
   });
 });
 
-class mockTickers extends Tickers {
+class mockTickers extends TickerAction {
   UpdateOne(symbol: string) {
     return super.UpdateOne(symbol);
   }

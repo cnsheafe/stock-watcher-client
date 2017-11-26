@@ -1,6 +1,6 @@
 import { IState } from "../store/store";
 import { Dispatch } from "redux";
-import postWatch from "../services/postWatch";
+import postWatch from "../network-calls/postWatch";
 
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const ADD_WATCH = "ADD_WATCH";

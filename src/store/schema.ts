@@ -17,8 +17,3 @@ export interface DataPoints {
   prices: Array<number>,
   times: Array<string>
 }
-
-export interface Ticker {
-  symbol: string,
-  price: number
-}

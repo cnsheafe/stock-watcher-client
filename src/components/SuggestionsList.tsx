@@ -5,7 +5,7 @@ import store from "../store/store";
 import { IState } from "../store/store";
 import { connect } from "react-redux";
 import { TickerCard } from "./TickerCard";
-import { Ticker } from "../actions/Tickers";
+import { Ticker } from "../action-creators/TickerAction";
 import "../styles/suggestions-list.scss";
 
 export interface SearchProps {

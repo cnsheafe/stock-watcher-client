@@ -2,9 +2,9 @@ import * as React from "react";
 import { Company } from "../store/schema";
 import store from "../store/store";
 import "../styles/suggestion-card.scss";
-import Tickers, { Ticker } from "../actions/Tickers";
-import SearchSuggestions from "../actions/SearchSuggestions";
-import GraphAction from "../actions/GraphAction";
+import TickerAction, { Ticker } from "../action-creators/TickerAction";
+import SearchSuggestions from "../action-creators/SearchSuggestions";
+import GraphAction from "../action-creators/GraphAction";
 
 interface ResultCardProps {
   tickers: Set<Ticker>;
@@ -52,7 +52,7 @@ export default class SearchResultCard extends React.Component<
         return;
       }
     }
-    store.dispatch(new Tickers().RequestMany([company.symbol]));
+    store.dispatch(new TickerAction().RequestMany([company.symbol]));
     store.dispatch(new SearchSuggestions().clearSuggestions());
   }
 }

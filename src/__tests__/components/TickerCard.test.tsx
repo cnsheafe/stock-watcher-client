@@ -5,7 +5,7 @@ import {TickerCard} from "../../components/TickerCard";
 import * as Enzyme from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 import { Graph, Company } from "../../store/schema";
-import { Ticker } from "../../actions/Tickers";
+import { Ticker } from "../../action-creators/TickerAction";
 
 (Enzyme as any).configure({ adapter: new Adapter() });
 

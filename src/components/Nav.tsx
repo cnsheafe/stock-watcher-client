@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
-import TabSwitch from "../actions/TabSwitch";
+import TabSwitch from "../action-creators/TabSwitch";
 import store from "../store/store";
 
 import "../styles/page-tabs.scss";

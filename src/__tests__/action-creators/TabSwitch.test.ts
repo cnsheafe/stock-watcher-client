@@ -1,4 +1,4 @@
-import TabSwitch, { SWITCH_TAB } from "../../actions/TabSwitch";
+import TabSwitch, { SWITCH_TAB } from "../../action-creators/TabSwitch";
 import { Dispatch } from "redux";
 import { IState } from "../../store/store";
 

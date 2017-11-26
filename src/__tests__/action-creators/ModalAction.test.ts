@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { IState } from "../../store/store";
-import ModalAction, { TOGGLE_MODAL, ADD_WATCH } from "../../actions/ModalAction";
+import ModalAction, { TOGGLE_MODAL, ADD_WATCH } from "../../action-creators/ModalAction";
 
 describe("Modal Action", function() {
   const mock: Dispatch<IState> = function(action) {

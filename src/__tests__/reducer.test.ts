@@ -5,14 +5,14 @@ import {
   SEARCH_RESULT,
   ClearSearchResults,
   CLEAR_RESULT
-} from "../actions/SearchSuggestions";
+} from "../action-creators/SearchSuggestions";
 import {
   ADD_GRAPH,
   AddGraph,
   REMOVE_GRAPH,
   RemoveGraph
-} from "../actions/GraphAction";
-import { TOGGLE_MODAL, ToggleModalDisplay } from "../actions/ModalAction";
+} from "../action-creators/GraphAction";
+import { TOGGLE_MODAL, ToggleModalDisplay } from "../action-creators/ModalAction";
 import {
   Ticker,
   REQUEST_TICKERS,
@@ -21,9 +21,9 @@ import {
   RemoveTicker,
   UpdateTicker,
   REMOVE_TICKER
-} from "../actions/Tickers";
+} from "../action-creators/TickerAction";
 import { Company } from "../store/schema";
-import TabSwitch, { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
+import TabSwitch, { SWITCH_TAB, SwitchTab } from "../action-creators/TabSwitch";
 
 // Prologue
 // The reducer should accept incoming actions

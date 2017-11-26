@@ -5,17 +5,17 @@ import store from "../store/store";
 import { IState } from "../store/store";
 import { TickerCard } from "./TickerCard";
 
-import Tickers, { Ticker } from "../actions/Tickers";
+import TickerAction, { Ticker } from "../action-creators/TickerAction";
 import "../styles/tickers.scss";
 
 export interface TickerListProps {
   tickers: Set<Ticker>;
 }
 export class TickerList extends React.Component<TickerListProps, {}> {
-  mTickers: Tickers;
+  mTickers: TickerAction;
   constructor(props) {
     super(props);
-    this.mTickers = new Tickers();
+    this.mTickers = new TickerAction();
   }
   render() {
     const listOfTickers = [...this.props.tickers].map((ticker, index) => (

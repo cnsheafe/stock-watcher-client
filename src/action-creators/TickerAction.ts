@@ -1,6 +1,6 @@
 import { ActionCreator, Dispatch } from "redux";
 import { IState } from "../store/store";
-import { fetchPrices } from "../services/fetchPrices";
+import { fetchPrices } from "../network-calls/fetchPrices";
 export const REMOVE_TICKER = "REMOVE_TICKER";
 export const UPDATE_TICKER = "UPDATE_TICKER";
 export const REQUEST_TICKERS = "REQUEST_TICKERS";

@@ -1,7 +1,7 @@
 import SearchSuggestions, {
   SEARCH_RESULT,
   CLEAR_RESULT
-} from "../../actions/SearchSuggestions";
+} from "../../action-creators/SearchSuggestions";
 import { IState } from "../../store/store";
 import { Dispatch } from "redux";
 

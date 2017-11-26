@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as Chart from "chart.js";
 
-import GraphAction from "../actions/GraphAction";
-import ModalAction from "../actions/ModalAction";
+import GraphAction from "../action-creators/GraphAction";
+import ModalAction from "../action-creators/ModalAction";
 import store, { IState } from "../store/store";
 import { Graph, Company, DataPoints } from "../store/schema";
 

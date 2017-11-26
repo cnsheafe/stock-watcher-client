@@ -13,27 +13,27 @@ import {
   RequestTickers,
   RemoveTicker,
   UpdateTicker
-} from "../actions/Tickers";
+} from "../action-creators/TickerAction";
 
 import {
   ADD_GRAPH,
   REMOVE_GRAPH,
   AddGraph,
   RemoveGraph
-} from "../actions/GraphAction";
+} from "../action-creators/GraphAction";
 import {
   ADD_WATCH,
   TOGGLE_MODAL,
   ToggleModalDisplay
-} from "../actions/ModalAction";
+} from "../action-creators/ModalAction";
 import {
   SEARCH_RESULT,
   CLEAR_RESULT,
   SearchResult,
   ClearSearchResults
-} from "../actions/SearchSuggestions";
+} from "../action-creators/SearchSuggestions";
 
-import { SWITCH_TAB, SwitchTab } from "../actions/TabSwitch";
+import { SWITCH_TAB, SwitchTab } from "../action-creators/TabSwitch";
 
 // Shape of the App State
 export interface IState {

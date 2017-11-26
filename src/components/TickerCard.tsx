@@ -1,5 +1,5 @@
 import * as React from "react";
-import Tickers from "../actions/Tickers";
+import TickerAction from "../action-creators/TickerAction";
 import store from "../store/store";
 import "../styles/tickers.scss";
 
@@ -9,11 +9,11 @@ interface TickerProps {
 }
 export class TickerCard extends React.Component<TickerProps> {
   timerId;
-  mTickers: Tickers;
+  mTickers: TickerAction;
 
   constructor(props: TickerProps) {
     super(props);
-    this.mTickers = new Tickers();
+    this.mTickers = new TickerAction();
   }
   render() {
     const priceElm =
@@ -46,7 +46,7 @@ export class TickerCard extends React.Component<TickerProps> {
   componentDidMount() {
     this.updateHandler(this.props.symbol);
     this.timerId = setInterval(() => {
-      store.dispatch(new Tickers().UpdateOne(this.props.symbol));
+      store.dispatch(new TickerAction().UpdateOne(this.props.symbol));
     }, 1e3 * 60);
   }
   componentWillUnmount() {
@@ -54,7 +54,7 @@ export class TickerCard extends React.Component<TickerProps> {
   }
 
   protected updateHandler(symbol: string) {
-    store.dispatch(new Tickers().UpdateOne(symbol)).then(action => {
+    store.dispatch(new TickerAction().UpdateOne(symbol)).then(action => {
       if (!action.updatedTicker.price) {
         this.updateHandler(symbol);
       }
