@@ -20,11 +20,11 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
     this.graphAction = new GraphAction();
     this.modalAction = new ModalAction();
 
-    // this.graphId = this.props.graphId;
-    // this.index = this.props.index;
-    // this.company = this.props.company;
-    // this.dataset = this.props.dataset;
-    // this.labels = this.props.labels;
+    this.graphId = this.props.graphId;
+    this.index = this.props.index;
+    this.company = this.props.company;
+    this.dataset = this.props.dataset;
+    this.labels = this.props.labels;
   }
 
   render() {
@@ -58,40 +58,14 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
       // Uncomment when Daily API @AlphaVantage becomes live again
       let tmp = label.split(" ")[1];
       return tmp.substring(0, tmp.length - 3);
+
       // Otherwise, return label
     });
 
     let config: Chart.ChartConfiguration = this.ChartDataConfigurationBuilder(
       "line",
       this.dataset,
-      this.labels
-    );
-    config.options = {
-      maintainAspectRatio: false
-    };
-
-    config.options.title = {
-      display: true,
-      fontFamily: "'Lato', sans-serif",
-      text: this.company.name
-    };
-    let chart = new Chart(context, config);
-  }
-
-  componentDidUpdate() {
-    let context = document.getElementById(this.graphId) as HTMLCanvasElement;
-
-    let parsedLabels = this.labels.map<string>((label, index) => {
-      // Uncomment when Daily API @AlphaVantage becomes live again
-      let tmp = label.split(" ")[1];
-      return tmp.substring(0, tmp.length - 3);
-      // Otherwise, return label
-    });
-
-    let config: Chart.ChartConfiguration = this.ChartDataConfigurationBuilder(
-      "line",
-      this.dataset,
-      this.labels
+      parsedLabels
     );
     config.options = {
       maintainAspectRatio: false
