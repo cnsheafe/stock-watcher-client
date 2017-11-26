@@ -1,13 +1,10 @@
 import * as React from "react";
 import Nav from "../../components/Nav";
-import { NavLink } from "react-router-dom";
 
-// import Enzyme, { shallow, mount, ShallowWrapper } from "enzyme";
 import * as Enzyme from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
 (Enzyme as any).configure({ adapter: new Adapter() });
-// Enzyme.configure({adapter: Adapter});
 
 describe("Nav", function() {
   test("should render a list with 2 links", function() {
