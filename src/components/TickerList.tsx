@@ -7,7 +7,6 @@ import { TickerCard } from "./TickerCard";
 
 import Tickers, { Ticker } from "../actions/Tickers";
 import "../styles/tickers.scss";
-import PageTabs from "./PageTabs";
 
 export interface TickerListProps {
   tickers: Set<Ticker>;
@@ -24,10 +23,16 @@ export class TickerList extends React.Component<TickerListProps, {}> {
         <TickerCard price={ticker.price} symbol={ticker.symbol} />
       </li>
     ));
-    return [
-      <div className="ticker-list-header">Tickers by the Minute</div>,
-      <ul className="ticker-list">{listOfTickers}</ul>
-    ];
+    return (
+      <div>
+        <div className="ticker-list-header" key={"t-header"}>
+          Tickers by the Minute
+        </div>
+        <ul className="ticker-list" key={"t-list"}>
+          {listOfTickers}
+        </ul>
+      </div>
+    );
   }
   componentDidMount() {
     const initSymbols = ["msft", "amd", "nflx"];

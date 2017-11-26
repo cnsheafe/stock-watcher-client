@@ -1,6 +1,6 @@
-import TabSwitch, { SWITCH_TAB } from "../actions/TabSwitch";
+import TabSwitch, { SWITCH_TAB } from "../../actions/TabSwitch";
 import { Dispatch } from "redux";
-import { IState } from "../store/store";
+import { IState } from "../../store/store";
 
 describe("TabSwitch", function() {
   const mock: Dispatch<IState> = function(action) {

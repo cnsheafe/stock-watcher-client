@@ -1,7 +1,7 @@
-import GraphAction, { AddGraph, ADD_GRAPH, REMOVE_GRAPH } from "../actions/GraphAction";
-import { Company } from "../store/schema";
+import GraphAction, { AddGraph, ADD_GRAPH, REMOVE_GRAPH } from "../../actions/GraphAction";
+import { Company } from "../../store/schema";
 import { Dispatch } from "redux";
-import { IState } from "../store/store";
+import { IState } from "../../store/store";
 import { IScheduler } from "rxjs/Scheduler";
 class mockGraphAction extends GraphAction {
   addGraph(company: Company) {

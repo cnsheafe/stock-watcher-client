@@ -5,12 +5,12 @@ import GraphCard from "./GraphCard";
 import store, { IState } from "../store/store";
 import { Graph } from "../store/schema";
 import "../styles/graphs.scss";
-interface GraphsProps {
+export interface GraphsProps {
   graphs: Graph[];
 }
 
 // Container Component for a list of graphs
-class Graphs extends React.Component<GraphsProps, {}> {
+export class GraphList extends React.Component<GraphsProps, {}> {
 
   render() {
     const graphs = [...this.props.graphs].map<JSX.Element>(
@@ -42,4 +42,4 @@ function mapStateToProps(state: IState) {
   };
 }
 
-export default connect(mapStateToProps)(Graphs);
+export default connect(mapStateToProps)(GraphList);
