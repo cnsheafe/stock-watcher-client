@@ -3,7 +3,10 @@ import TickerList from "./TickerList";
 import Search from "./Search";
 import SuggestionsList from "./SuggestionsList";
 
-export default class extends React.Component {
+/**
+ * Represents a page for Tickers
+ */
+export default class TickerPage extends React.Component {
   render() {
     return (
       <section>

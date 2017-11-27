@@ -11,6 +11,10 @@ import "../styles/tickers.scss";
 export interface TickerListProps {
   tickers: Set<Ticker>;
 }
+
+/**
+ * Represents a list of tickers
+ */
 export class TickerList extends React.Component<TickerListProps, {}> {
   mTickers: TickerAction;
   constructor(props) {

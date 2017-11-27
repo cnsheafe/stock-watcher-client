@@ -17,7 +17,7 @@ class mockGraphAction extends GraphAction {
   }
 }
 
-describe("Graph Action", function() {
+describe("GraphAction", function() {
   const mock: Dispatch<IState> = function(action) {
     return action;
   };
