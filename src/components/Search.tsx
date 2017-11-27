@@ -10,7 +10,7 @@ export interface SearchProps {
   searchResults: Array<Company>;
 }
 
-// Container Component for searching company stocks
+// Represents searchbar for company stocks
 export class Search extends React.Component<SearchProps, {}> {
   private searchSuggestions: SearchSuggestions;
   constructor(props) {
@@ -38,11 +38,13 @@ export class Search extends React.Component<SearchProps, {}> {
       </section>
     );
   }
+
   // Attaches rxjs to the search element for debounce requests
   componentDidMount() {
     const searchElement = document.getElementById(
       "search-companies"
     ) as HTMLInputElement;
+
     searchElement.onfocus = () => (searchElement.value = "");
 
     searchElement.addEventListener("keyup", key => {

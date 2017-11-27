@@ -11,13 +11,25 @@ interface ResultCardProps {
   company: Company;
   onTickers: boolean;
 }
+
+/**
+ * Represents a single search result
+ */
 export default class SearchResultCard extends React.Component<
   ResultCardProps,
   {}
 > {
+  tickerAction: TickerAction;
+  graphAction: GraphAction;
+  searchAction: SearchSuggestions;
+
   constructor(props) {
     super(props);
+    this.tickerAction = new TickerAction();
+    this.graphAction = new GraphAction();
+    this.searchAction = new SearchSuggestions();
   }
+
   render() {
     const company = this.props.company;
     const cardElm = this.props.onTickers ? (
@@ -43,16 +55,27 @@ export default class SearchResultCard extends React.Component<
     );
     return cardElm;
   }
+
+  /**
+   * Add graph
+   * @param company
+   */
   protected graphHandler(company: Company) {
-    store.dispatch(new GraphAction().addGraph(company));
+    store.dispatch(this.graphAction.addGraph(company));
   }
+
+  /**
+   * Adds tickers
+   * @param company
+   * @param inUseTickers
+   */
   protected tickerHandler(company: Company, inUseTickers: Set<Ticker>) {
     for (let ticker of inUseTickers) {
       if (ticker.symbol === company.symbol.toLowerCase()) {
         return;
       }
     }
-    store.dispatch(new TickerAction().RequestMany([company.symbol]));
-    store.dispatch(new SearchSuggestions().clearSuggestions());
+    store.dispatch(this.tickerAction.RequestMany([company.symbol]));
+    store.dispatch(this.searchAction.clearSuggestions());
   }
 }

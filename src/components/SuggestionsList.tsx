@@ -14,6 +14,9 @@ export interface SearchProps {
   tickers: Set<Ticker>;
 }
 
+/**
+ * Represents a list of search suggestions
+ */
 export class SuggestionsList extends React.Component<SearchProps, {}> {
   render() {
     const suggestions = this.props.searchResults.map((company, index) => (

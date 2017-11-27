@@ -5,7 +5,10 @@ import store from "../store/store";
 
 import "../styles/page-tabs.scss";
 
-export default class PageTabs extends React.Component {
+/**
+ * Represents a nav for switching between the pages
+ */
+export default class Nav extends React.Component {
   tabSwitch: TabSwitch;
   constructor(props) {
     super(props);
@@ -37,6 +40,7 @@ export default class PageTabs extends React.Component {
     );
   }
 
+  // Switches pages
   switchHandler(toTicker: boolean) {
     store.dispatch(this.tabSwitch.switchPage(toTicker));
   }

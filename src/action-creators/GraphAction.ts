@@ -19,10 +19,16 @@ export interface RemoveGraph {
   index: number;
 }
 
+/**
+ * Creates actions for managing graph state in the store.
+ */
 export default class GraphAction {
-
+  /**
+   * Adds a graph to the store
+   * @param company {Company} Company symbol and name
+   */
   addGraph(company: Company) {
-    return (dispatch: Dispatch<IState>) => {
+    return (dispatch: Dispatch<IState>): Promise<AddGraph> => {
       return this.fetchPriceHelper(company).then(data => {
         return dispatch<AddGraph>({
           type: ADD_GRAPH,
@@ -33,16 +39,23 @@ export default class GraphAction {
       });
     };
   }
-
+  /**
+   * Removes a graph at the specified index
+   * @param {number} index - Index in the store.graphs array
+   */
   removeGraph(index: number) {
-    return (dispatch: Dispatch<IState>) => {
+    return (dispatch: Dispatch<IState>):RemoveGraph => {
       return dispatch<RemoveGraph>({
         type: REMOVE_GRAPH,
         index: index
       });
     };
   }
-
+  /**
+   * Wrapper for request to get stock prices
+   * @param company 
+   * @return Timeseries of stock prices
+   */
   protected fetchPriceHelper(company) {
     return fetchPrices([company.symbol]).then(results => {
       const c = results[company.symbol.toUpperCase()];

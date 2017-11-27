@@ -24,10 +24,17 @@ export interface RemoveTicker {
   symbol: string;
 }
 
-export default class Tickers {
+/**
+ * Manages the stock tickers.
+ */
+export default class TickerAction {
 
+  /**
+   * Add stock tickers to the store
+   * @param symbols Stock symbols
+   */
   RequestMany(symbols: string[]) {
-    return (dispatch: Dispatch<IState>) => {
+    return (dispatch: Dispatch<IState>): RequestTickers => {
       const tickers = new Set<Ticker>();
       symbols.forEach(symbol => {
         tickers.add({
@@ -42,15 +49,23 @@ export default class Tickers {
       });
     };
   }
-
+  /**
+   * Removes a stock symbol
+   * @param symbol Stock symbol
+   */
   RemoveOne(symbol: string) {
-    return (dispatch: Dispatch<IState>) => {
+    return (dispatch: Dispatch<IState>): RemoveTicker => {
       return dispatch<RemoveTicker>({
         type: REMOVE_TICKER,
         symbol: symbol
       });
     };
   }
+
+  /**
+   * Updates the price of a stock ticker
+   * @param symbol Stock symbol
+   */
   UpdateOne(symbol: string) {
     return (dispatch: Dispatch<IState>) => {
       return this.fetchPrices(symbol).then(results => {
@@ -67,6 +82,11 @@ export default class Tickers {
       });
     };
   }
+
+  /**
+   * Wrapper for requesting stock prices
+   * @param symbol Stock symbol
+   */
   protected fetchPrices(symbol:string) {
     return fetchPrices([symbol]);
   }

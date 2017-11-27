@@ -3,10 +3,15 @@ import TickerAction from "../action-creators/TickerAction";
 import store from "../store/store";
 import "../styles/tickers.scss";
 
+
 interface TickerProps {
   symbol: string;
   price: number;
 }
+
+/**
+ * Represents a single ticker
+ */
 export class TickerCard extends React.Component<TickerProps> {
   timerId;
   mTickers: TickerAction;

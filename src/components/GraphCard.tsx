@@ -6,6 +6,9 @@ import ModalAction from "../action-creators/ModalAction";
 import store, { IState } from "../store/store";
 import { Graph, Company, DataPoints } from "../store/schema";
 
+/**
+ * Represents a single graph and its controls.
+ */
 export default class GraphCard extends React.Component<Graph> implements Graph {
   graphAction: GraphAction;
   modalAction: ModalAction;
@@ -79,16 +82,24 @@ export default class GraphCard extends React.Component<Graph> implements Graph {
     let chart = new Chart(context, config);
   }
 
-  handleRemove(event: React.MouseEvent<HTMLButtonElement>) {
+  protected handleRemove(event: React.MouseEvent<HTMLButtonElement>) {
     console.log(this.props.index);
     store.dispatch(this.graphAction.removeGraph(this.props.index));
     document.getElementById("search-companies").focus();
   }
 
-  handleWatch(symbol: string) {
+  protected handleWatch(symbol: string) {
     store.dispatch(this.modalAction.toggleDisplay(symbol));
   }
-  ChartDataConfigurationBuilder(
+
+  /**
+   * Configure the complicated data pattern for ChartConfiguration
+   * @param type The type of Chart
+   * @param dataPoints Data
+   * @param labels Matching labels to dataPoints
+   * @return Configuration for Chart
+   */
+  protected ChartDataConfigurationBuilder(
     type: Chart.ChartType,
     dataPoints: Array<number>,
     labels: Array<string>

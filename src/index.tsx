@@ -5,7 +5,7 @@ import "react-hot-loader/patch";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import SearchPage from "./components/SearchPage";
+import GraphPage from "./components/GraphPage";
 import TickerPage from "./components/TickerPage";
 import store from "./store/store";
 import Nav from "./components/Nav";
@@ -14,12 +14,12 @@ function renderApp() {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <BrowserRouter basename='/'>
-        <div>
-          <Nav />
-          <Route exact path="/" component={TickerPage} />
-          <Route path="/graphs" component={SearchPage} />
-        </div>
+        <BrowserRouter basename="/">
+          <div>
+            <Nav />
+            <Route exact path="/" component={TickerPage} />
+            <Route path="/graphs" component={GraphPage} />
+          </div>
         </BrowserRouter>
       </Provider>
     </AppContainer>,

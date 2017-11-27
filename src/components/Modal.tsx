@@ -1,6 +1,5 @@
 import * as React from "react";
 import ModalAction from "../action-creators/ModalAction";
-// import { toggleModalDisplay, addWatchAsync } from "../store/actions";
 import { Company } from "../store/schema";
 import store, { IState } from "../store/store";
 import { connect } from "react-redux";
@@ -11,7 +10,7 @@ export interface ModalProps {
   modalSymbol: string;
 }
 
-// Container Component for setting up an SMS Alert
+// Represents a modal for setting up SMS alerts
 export class Modal extends React.Component<ModalProps, {}> {
   private bodyElement: HTMLElement;
   private keyCallback: (event: KeyboardEvent) => void;
@@ -174,6 +173,7 @@ export class Modal extends React.Component<ModalProps, {}> {
       });
   }
 
+  // Moves the cursor blinker when the user reaches the input character limit
   protected handleMoveBlinker(areaCodeInput, fieldOneInput, fieldTwoInput) {
     areaCodeInput.addEventListener("keyup", () => {
       if (areaCodeInput.value.length === areaCodeInput.maxLength) {

@@ -9,7 +9,9 @@ export interface GraphsProps {
   graphs: Graph[];
 }
 
-// Container Component for a list of graphs
+/**
+ * Represents a list of graphs
+ */
 export class GraphList extends React.Component<GraphsProps, {}> {
 
   render() {
